@@ -53,7 +53,7 @@ function Create() {
             </div>
             {!beginning && <div className="nameEntry">
                 <p>Enter name of set: </p>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+                <input type="text" placeholder="Abraham Lincoln" value={name} onChange={(e) => setName(e.target.value)}/>
                 <div className="button" onClick={()=>{
                     handleConfirm();
                     setBeginning(true);
