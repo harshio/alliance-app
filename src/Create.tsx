@@ -16,8 +16,36 @@ function Create() {
     const [clickThree, setClickThree] = useState(false);
     const [clickFour, setClickFour] = useState(false);
     const[beginning, setBeginning] = useState(false);
+    const[questionNumber, setQuestionNumber] = useState(1);
     const[name, setName] = useState('');
+    const[currentNumber, setCurrentNumber] = useState(0);
     const navigate = useNavigate();
+
+    const handleConfirm = async () => {
+        const response = await fetch("http://localhost:8000/api/max");
+        const maxSetNumber = await response.json();
+        const newSetNumber = maxSetNumber + 1;
+        setCurrentNumber(newSetNumber);
+        console.log("Current Set Number:", newSetNumber);
+    }
+
+    const handleSend = async (text: string, correctAnswer: string, points: number, answers: string[], setNumber: number, questionNumber: number) => {
+        const response = await fetch("http://localhost:8000/api/new",{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                text: text,
+                correctAnswer: correctAnswer,
+                points: points,
+                answers: answers,
+                setNumber: setNumber,
+                questionNumber: questionNumber
+            })
+        });
+    }
+
     return(
         <div>
             <div className="titleBar">
@@ -26,7 +54,10 @@ function Create() {
             {!beginning && <div className="nameEntry">
                 <p>Enter name of set: </p>
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-                <div className="button" onClick={()=>{setBeginning(true)}}>Confirm</div>
+                <div className="button" onClick={()=>{
+                    handleConfirm();
+                    setBeginning(true);
+                }}>Confirm</div>
             </div>}
             {beginning && <div className="questionBox">
                 <div className="format">
@@ -98,6 +129,25 @@ function Create() {
                 navigate('/id', {state: {tag}});
             }}>Start Game</div>}
             {beginning && allDone && <div className="button" onClick= {()=>{
+                let correctAnswer = "";
+                if(clickOne){
+                    correctAnswer = nameOne;
+                }
+                else if(clickTwo){
+                    correctAnswer = nameTwo;
+                }
+                else if(clickThree){
+                    correctAnswer = nameThree;
+                }
+                else if(clickFour){
+                    correctAnswer = nameFour;
+                }
+                const answers = [nameOne, nameTwo, nameThree, nameFour];
+                const currIndex = questionNumber;
+                const currQuestion = question;
+                const currPoints = Number(pointValue);
+                const setIndex = currentNumber;
+                handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex);
                 setNameOne('');
                 setNameTwo('');
                 setNameThree('');
@@ -109,6 +159,7 @@ function Create() {
                 setClickThree(false);
                 setClickFour(false);
                 setAllDone(false);
+                setQuestionNumber(questionNumber + 1);
             }}>
                 Confirm
             </div>}
