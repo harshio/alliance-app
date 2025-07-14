@@ -31,25 +31,53 @@ function Create() {
                 </div>
                 <div className="format">
                     {allDone && <div className={`button ${clickOne ? 'clicked' : ''}`}
-  onClick={() => setClickOne(true)}>{nameOne}</div>}
+                    onClick={() => {
+                        if(clickOne){
+                            setClickOne(false);
+                        }
+                        else{
+                            setClickOne(true);
+                        }
+                    }}>{nameOne}</div>}
                     {!allDone && <p>First Answer: </p>}
                     {!allDone && <input type="text" value={nameOne} onChange={(e) => setNameOne(e.target.value)}/>}
                 </div>
                 <div className="format">
                     {allDone && <div className={`button ${clickTwo ? 'clicked' : ''}`}
-  onClick={() => setClickTwo(true)}>{nameTwo}</div>}
+                    onClick={() => {
+                        if(clickTwo){
+                            setClickTwo(false);
+                        }
+                        else{
+                            setClickTwo(true);
+                        }
+                    }}>{nameTwo}</div>}
                     {!allDone && <p>Second Answer: </p>}
                     {!allDone && <input type="text" value={nameTwo} onChange={(e) => setNameTwo(e.target.value)}/>}
                 </div>
                 <div className="format">
                     {allDone && <div className={`button ${clickThree ? 'clicked' : ''}`}
-  onClick={() => setClickThree(true)}>{nameThree}</div>}
+                    onClick={() => {
+                        if(clickThree){
+                            setClickThree(false);
+                        }
+                        else{
+                            setClickThree(true);
+                        }
+                    }}>{nameThree}</div>}
                     {!allDone && <p>Third Answer: </p>}
                     {!allDone && <input type="text" value={nameThree} onChange={(e) => setNameThree(e.target.value)}/>}
                 </div>
                 <div className="format">
                     {allDone && <div className={`button ${clickFour ? 'clicked' : ''}`}
-  onClick={() => setClickFour(true)}>{nameFour}</div>}
+                    onClick={() => {
+                        if(clickFour){
+                            setClickFour(false);
+                        }
+                        else{
+                            setClickFour(true);
+                        }
+                    }}>{nameFour}</div>}
                     {!allDone && <p>Fourth Answer: </p>}
                     {!allDone && <input type="text" value={nameFour} onChange={(e) => setNameFour(e.target.value)}/>}
                 </div>
@@ -64,6 +92,10 @@ function Create() {
                 setNameFour('');
                 setQuestion('');
                 setPointValue('');
+                setClickOne(false);
+                setClickTwo(false);
+                setClickThree(false);
+                setClickFour(false);
                 setAllDone(false);
             }}>
                 Confirm
