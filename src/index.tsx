@@ -7,6 +7,8 @@ import Question from './Question';
 import Results from './Results';
 import Between from './Between';
 import Create from './Create';
+import Login from './Login';
+import IDScreen from './IDScreen';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -33,6 +35,16 @@ const router = createBrowserRouter([
   {
     path: '/create',
     element: <Create />,
+    errorElement: <div>404 Not Found</div>
+  },
+  {
+    path: '/login',
+    element: <Login />,
+    errorElement: <div>404 Not Found</div>
+  },
+  {
+    path: '/id',
+    element: <IDScreen />,
     errorElement: <div>404 Not Found</div>
   }
 ]);

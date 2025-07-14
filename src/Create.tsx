@@ -15,12 +15,20 @@ function Create() {
     const [clickTwo, setClickTwo] = useState(false);
     const [clickThree, setClickThree] = useState(false);
     const [clickFour, setClickFour] = useState(false);
+    const[beginning, setBeginning] = useState(false);
+    const[name, setName] = useState('');
+    const navigate = useNavigate();
     return(
         <div>
             <div className="titleBar">
-                <h1>Alliance</h1>
+                <h1>Alliance - {beginning && <p className="playerName">{name}</p>}</h1>
             </div>
-            <div className="questionBox">
+            {!beginning && <div className="nameEntry">
+                <p>Enter name of set: </p>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+                <div className="button" onClick={()=>{setBeginning(true)}}>Confirm</div>
+            </div>}
+            {beginning && <div className="questionBox">
                 <div className="format">
                     <p>Question: </p>
                     <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)}/>
@@ -81,11 +89,15 @@ function Create() {
                     {!allDone && <p>Fourth Answer: </p>}
                     {!allDone && <input type="text" value={nameFour} onChange={(e) => setNameFour(e.target.value)}/>}
                 </div>
-            </div>
-            {!allDone && <div className="button" onClick= {()=>{setAllDone(true)}}>
+            </div>}
+            {beginning && !allDone && <div className="button" onClick= {()=>{setAllDone(true)}}>
                 +
             </div>}
-            {allDone && <div className="button" onClick= {()=>{
+            {beginning && !allDone && <div className="button" onClick={()=>{
+                const tag = Math.floor(Math.random() * 9000) + 1000;
+                navigate('/id', {state: {tag}});
+            }}>Start Game</div>}
+            {beginning && allDone && <div className="button" onClick= {()=>{
                 setNameOne('');
                 setNameTwo('');
                 setNameThree('');
