@@ -6,6 +6,7 @@ import App from './App';
 import Question from './Question';
 import Results from './Results';
 import Between from './Between';
+import Create from './Create';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
   {
     path: '/between',
     element: <Between/>,
+    errorElement: <div>404 Not Found</div>
+  },
+  {
+    path: '/create',
+    element: <Create />,
     errorElement: <div>404 Not Found</div>
   }
 ]);

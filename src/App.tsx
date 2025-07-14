@@ -7,8 +7,9 @@ function App() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const currQuestion = 0;
+  const pointTotal = 0;
   const handleSubmit = () => {
-    navigate('/questions', {state: { currQuestion, name }});
+    navigate('/questions', {state: { currQuestion, name, pointTotal }});
   }
   //apparently you can pass in states when you navigate
   return (
