@@ -12,7 +12,7 @@ function Login() {
         </div>
         <div className="nameEntry">
             <p>Write ID here</p>
-            <input type="text" name="username" placeholder="123456"/>
+            <input type="text" name="username" placeholder="12345"/>
             <div className="button" onClick={()=>navigate('/')}>Submit</div>
         </div>
     </div>
