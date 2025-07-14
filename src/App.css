@@ -101,11 +101,11 @@ input{
   font-weight: bold;
   font-style: italic;
   text-align: center;
-  width: 30%;
   margin-top: 20px;
   padding: 10px 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
