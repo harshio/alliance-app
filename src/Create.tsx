@@ -19,7 +19,6 @@ function Create() {
     const[questionNumber, setQuestionNumber] = useState(1);
     const[name, setName] = useState('');
     const[currentNumber, setCurrentNumber] = useState(0);
-    const[tag, setTag] = useState(0);
     const navigate = useNavigate();
 
     const handleConfirm = async () => {
@@ -27,11 +26,10 @@ function Create() {
         const maxSetNumber = await response.json();
         const newSetNumber = maxSetNumber + 1;
         setCurrentNumber(newSetNumber);
-        setTag(Math.floor(Math.random() * 9000) + 1000);
         console.log("Current Set Number:", newSetNumber);
     }
 
-    const handleSend = async (text: string, correctAnswer: string, points: number, answers: string[], setNumber: number, questionNumber: number, clientNumber: number) => {
+    const handleSend = async (text: string, correctAnswer: string, points: number, answers: string[], setNumber: number, questionNumber: number) => {
         const response = await fetch("http://localhost:8000/api/new",{
             method: 'POST',
             headers:{
@@ -43,8 +41,7 @@ function Create() {
                 points: points,
                 answers: answers,
                 setNumber: setNumber,
-                questionNumber: questionNumber,
-                clientNumber: clientNumber
+                questionNumber: questionNumber
             })
         });
     }
@@ -128,7 +125,8 @@ function Create() {
                 +
             </div>}
             {beginning && !allDone && <div className="button" onClick={()=>{
-                navigate('/id', {state: {tag}});
+                const setIndex = currentNumber;
+                navigate('/id', {state: {setIndex}});
             }}>Start Game</div>}
             {beginning && allDone && <div className="button" onClick= {()=>{
                 let correctAnswer = "";
@@ -149,8 +147,7 @@ function Create() {
                 const currQuestion = question;
                 const currPoints = Number(pointValue);
                 const setIndex = currentNumber;
-                const currentTag = tag;
-                handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex, currentTag);
+                handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex);
                 setNameOne('');
                 setNameTwo('');
                 setNameThree('');
