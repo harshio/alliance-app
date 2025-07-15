@@ -13,7 +13,7 @@ import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/login',
     element: <App />,
     errorElement: <div>404 Not Found</div>
   },
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     errorElement: <div>404 Not Found</div>
   },
   {
-    path: '/login',
+    path: '/',
     element: <Login />,
     errorElement: <div>404 Not Found</div>
   },

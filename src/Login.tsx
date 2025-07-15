@@ -26,7 +26,7 @@ function Login() {
                 setSize(thisSize);
                 console.log("The size of set " + newEntry + " is " + thisSize);
                 if(thisSize !== 0){
-                    navigate('/', { state: {newEntry, thisSize} });
+                    navigate('/login', { state: {newEntry, thisSize} });
                 }
                 else{
                     setSize(-1);

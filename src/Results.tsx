@@ -14,7 +14,7 @@ function Results(){
                 <h1>Alliance</h1>
             </div>
             <p className="endMessage">Great job, {name}! You scored {score} points!</p>
-            <div className="button" onClick = {()=>{navigate('/login')}}>Play Again</div>
+            <div className="button" onClick = {()=>{navigate('/')}}>Play Again</div>
         </div>
     );
 }
