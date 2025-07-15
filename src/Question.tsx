@@ -7,67 +7,58 @@ interface LocationState{
     state: {
         currQuestion: number,
         name: string,
-        pointTotal: number;
+        pointTotal: number,
+        setNumber: number,
+        setSize: number;
     };
+}
+
+interface FetchedQuestion {
+    text: string;
+    correctAnswer: string;
+    points: number;
+    answers: string[];
 }
 
 const Question: React.FC = () => {
     const location = useLocation() as LocationState;
     const name = location.state?.name || 'Guest';
-    const [questionIndex, setQuestionIndex] = useState(0);
+    const setNumber = location.state.setNumber;
+    const setSize = location.state.setSize;
+    const [questionIndex, setQuestionIndex] = useState(1);
     const [pointTotal, setPointTotal] = useState(0);
+    const [upQuestion, setUpQuestion] = useState<FetchedQuestion | null>(null);
+    const loadInQuestion = async (questionNumber: number) => {
+        const thing = await fetch(`http://localhost:8000/api/question/${setNumber}/${questionNumber}`);
+        const currQuestion = await thing.json();
+        setUpQuestion(currQuestion);
+        setQuestionIndex(questionNumber);
+    }
 
     useEffect(() => {
         const again = location.state.currQuestion;
         const numby = location.state.pointTotal;
         console.log("This should be the same number: " + numby);
-        setQuestionIndex(again);
+        loadInQuestion(again);
         setPointTotal(numby);
     }, []);
 
-    const questions = [
-        {
-            text: "Is this a fruit or a vegetable?",
-            answers: ["Fruit", "Vegetable", "Fruit", "Vegetable"],
-            correctAnswer: "Vegetable",
-            points: 10
-        },
-        {
-            text: "Is this man happy or sad?",
-            answers: ["Happy", "Sad", "Happy", "Sad"],
-            correctAnswer: "Happy",
-            points: 9
-        },
-        {
-            text: "How much should you get paid for your work, given that you live in a shitty apartment?",
-            answers: ["A Little", "A Lot", "A Little", "A Lot"],
-            correctAnswer: "A Lot",
-            points: 8
-        },
-        {
-            text: "Is this a bottom or a top?",
-            answers: ["Bottom", "Top", "Bottom", "Top"],
-            correctAnswer: "Top",
-            points: 7
-        },
-        {
-            text: "Is this a couch or a chair?",
-            answers: ["Couch", "Chair", "Couch", "Chair"],
-            correctAnswer: "Couch",
-            points: 6
-        }
-    ];
-    const currentQuestion = questions[questionIndex];
-    const point = currentQuestion.points;
     const navigate = useNavigate();
-    return(
+
+    if (!upQuestion) {
+        return <div>Loading question...</div>;
+    }
+
+    const currentQuestion = upQuestion as FetchedQuestion;
+    const point = currentQuestion.points;
+    return (
         <div>
             <div className="titleBar">
                 <h1>Alliance - <p className="playerName">{name}</p></h1>
             </div>
             <div className="questionAnswer">
                 <div className="question">
-                    <h2 className="questionLabel">Question {questionIndex + 1}</h2>
+                    <h2 className="questionLabel">Question {questionIndex}</h2>
                     <p>{currentQuestion.text}</p>
                     <div className="image">Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi</div>
                 </div>
@@ -75,41 +66,41 @@ const Question: React.FC = () => {
                     <div className="answer1">
                         <div className="button inline" onClick={(e)=>{
                                 const selectedText = e.currentTarget.textContent;
-                                const amountLeft = questions.length - questionIndex;
+                                const amountLeft = setSize - questionIndex;
                                 let ohBoy = false;
                                 if(selectedText === currentQuestion.correctAnswer){
                                     ohBoy = true;
                                 }
-                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point}});
+                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                             }}>{currentQuestion.answers[0]}</div>
                         <div className="button inline" onClick={(e)=>{
                                 const selectedText = e.currentTarget.textContent;
-                                const amountLeft = questions.length - questionIndex;
+                                const amountLeft = setSize - questionIndex;
                                 let ohBoy = false;
                                 if(selectedText === currentQuestion.correctAnswer){
                                     ohBoy = true;
                                 }
-                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point}});
+                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                             }}>{currentQuestion.answers[1]}</div>
                     </div>
                     <div className="answer2">
                         <div className="button inline" onClick={(e)=>{
                                 const selectedText = e.currentTarget.textContent;
-                                const amountLeft = questions.length - questionIndex;
+                                const amountLeft = setSize - questionIndex;
                                 let ohBoy = false;
                                 if(selectedText === currentQuestion.correctAnswer){
                                     ohBoy = true;
                                 }
-                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point}});
+                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                             }}>{currentQuestion.answers[2]}</div>
                         <div className="button inline" onClick={(e)=>{
                                 const selectedText = e.currentTarget.textContent;
-                                const amountLeft = questions.length - questionIndex;
+                                const amountLeft = setSize - questionIndex;
                                 let ohBoy = false;
                                 if(selectedText === currentQuestion.correctAnswer){
                                     ohBoy = true;
                                 }
-                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point}});
+                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                             }}>{currentQuestion.answers[3]}</div>
                     </div>
                 </div>

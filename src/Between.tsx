@@ -4,13 +4,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 
 function Between() {
-    const location = useLocation() as {state: {questionIndex: number, name: string, ohBoy: boolean, amountLeft: number, pointTotal: number, point: number}};
+    const location = useLocation() as {state: {questionIndex: number, name: string, ohBoy: boolean, amountLeft: number, pointTotal: number, point: number, setNumber: number, setSize: number}};
     const currQuestion = location.state.questionIndex + 1;
     const name = location.state.name;
     const yeahOkay = location.state.ohBoy;
-    const remaining = location.state.amountLeft - 1;
+    const remaining = location.state.amountLeft;
     let pointTotal = location.state.pointTotal;
     const worth = location.state.point;
+    const setNumber = location.state.setNumber;
+    const setSize = location.state.setSize;
     const navigate = useNavigate();
     if(yeahOkay){
         pointTotal = pointTotal + worth;
@@ -28,7 +30,7 @@ function Between() {
                     navigate('/results', {state: {name, pointTotal}});
                 }
                 else{
-                    navigate('/questions', {state: {currQuestion, name, pointTotal}});
+                    navigate('/questions', {state: {currQuestion, name, pointTotal, setNumber, setSize}});
                 }
                 console.log(currQuestion);
             }}>Next</div>
