@@ -112,6 +112,21 @@ input{
   align-items: center;
 }
 
+.godIsGood{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.fuck{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 .button:hover{
   color: white;
@@ -130,10 +145,12 @@ input{
 
 
 .questionAnswer{
-  position: absolute;
-  top: 30%;
-  left: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  margin-top: -100px;
 }
 
 

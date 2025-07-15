@@ -52,56 +52,58 @@ const Question: React.FC = () => {
     const currentQuestion = upQuestion as FetchedQuestion;
     const point = currentQuestion.points;
     return (
-        <div>
+        <div className="fuck">
             <div className="titleBar">
                 <h1>Alliance - <p className="playerName">{name}</p></h1>
             </div>
-            <div className="questionAnswer">
-                <div className="question">
-                    <h2 className="questionLabel">Question {questionIndex}</h2>
-                    <p>{currentQuestion.text}</p>
-                    <div className="image">Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi</div>
-                </div>
-                <div className="answers">
-                    <div className="answer1">
-                        <div className="button inline" onClick={(e)=>{
-                                const selectedText = e.currentTarget.textContent;
-                                const amountLeft = setSize - questionIndex;
-                                let ohBoy = false;
-                                if(selectedText === currentQuestion.correctAnswer){
-                                    ohBoy = true;
-                                }
-                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
-                            }}>{currentQuestion.answers[0]}</div>
-                        <div className="button inline" onClick={(e)=>{
-                                const selectedText = e.currentTarget.textContent;
-                                const amountLeft = setSize - questionIndex;
-                                let ohBoy = false;
-                                if(selectedText === currentQuestion.correctAnswer){
-                                    ohBoy = true;
-                                }
-                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
-                            }}>{currentQuestion.answers[1]}</div>
+            <div className="godIsGood">
+                <div className="questionAnswer">
+                    <div className="question">
+                        <h2 className="questionLabel">Question {questionIndex}</h2>
+                        <p>{currentQuestion.text}</p>
+                        <div className="image">Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi</div>
                     </div>
-                    <div className="answer2">
-                        <div className="button inline" onClick={(e)=>{
-                                const selectedText = e.currentTarget.textContent;
-                                const amountLeft = setSize - questionIndex;
-                                let ohBoy = false;
-                                if(selectedText === currentQuestion.correctAnswer){
-                                    ohBoy = true;
-                                }
-                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
-                            }}>{currentQuestion.answers[2]}</div>
-                        <div className="button inline" onClick={(e)=>{
-                                const selectedText = e.currentTarget.textContent;
-                                const amountLeft = setSize - questionIndex;
-                                let ohBoy = false;
-                                if(selectedText === currentQuestion.correctAnswer){
-                                    ohBoy = true;
-                                }
-                                navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
-                            }}>{currentQuestion.answers[3]}</div>
+                    <div className="answers">
+                        <div className="answer1">
+                            <div className="button inline" onClick={(e)=>{
+                                    const selectedText = e.currentTarget.textContent;
+                                    const amountLeft = setSize - questionIndex;
+                                    let ohBoy = false;
+                                    if(selectedText === currentQuestion.correctAnswer){
+                                        ohBoy = true;
+                                    }
+                                    navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
+                                }}>{currentQuestion.answers[0]}</div>
+                            <div className="button inline" onClick={(e)=>{
+                                    const selectedText = e.currentTarget.textContent;
+                                    const amountLeft = setSize - questionIndex;
+                                    let ohBoy = false;
+                                    if(selectedText === currentQuestion.correctAnswer){
+                                        ohBoy = true;
+                                    }
+                                    navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
+                                }}>{currentQuestion.answers[1]}</div>
+                        </div>
+                        <div className="answer2">
+                            <div className="button inline" onClick={(e)=>{
+                                    const selectedText = e.currentTarget.textContent;
+                                    const amountLeft = setSize - questionIndex;
+                                    let ohBoy = false;
+                                    if(selectedText === currentQuestion.correctAnswer){
+                                        ohBoy = true;
+                                    }
+                                    navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
+                                }}>{currentQuestion.answers[2]}</div>
+                            <div className="button inline" onClick={(e)=>{
+                                    const selectedText = e.currentTarget.textContent;
+                                    const amountLeft = setSize - questionIndex;
+                                    let ohBoy = false;
+                                    if(selectedText === currentQuestion.correctAnswer){
+                                        ohBoy = true;
+                                    }
+                                    navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
+                                }}>{currentQuestion.answers[3]}</div>
+                        </div>
                     </div>
                 </div>
             </div>
