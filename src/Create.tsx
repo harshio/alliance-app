@@ -126,8 +126,8 @@ function Create() {
             </div>}
             {beginning && !allDone && <div className="button" onClick={()=>{
                 const setIndex = currentNumber;
-                navigate('/id', {state: {setIndex}});
-            }}>Start Game</div>}
+                navigate('/saved');
+            }}>Complete Game</div>}
             {beginning && allDone && <div className="button" onClick= {()=>{
                 let correctAnswer = "";
                 if(clickOne){

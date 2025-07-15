@@ -9,6 +9,7 @@ import Between from './Between';
 import Create from './Create';
 import Login from './Login';
 import IDScreen from './IDScreen';
+import Saved from './Saved';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
   {
     path: '/id',
     element: <IDScreen />,
+    errorElement: <div>404 Not Found</div>
+  },
+  {
+    path: '/saved',
+    element: <Saved />,
     errorElement: <div>404 Not Found</div>
   }
 ]);
