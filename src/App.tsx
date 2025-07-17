@@ -12,6 +12,7 @@ function App() {
   const setNumber = location.state.newEntry;
   const setSize = location.state.thisSize;
   const handleSubmit = () => {
+    console.log("Hello");
     navigate('/questions', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
   }
   //apparently you can pass in states when you navigate
