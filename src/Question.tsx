@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSocket } from './WebSocketContext';
 import './App.css';
 
 interface LocationState{
@@ -27,6 +28,7 @@ const Question: React.FC = () => {
     const setSize = location.state.setSize;
     const [questionIndex, setQuestionIndex] = useState(1);
     const [pointTotal, setPointTotal] = useState(0);
+    const {connect, disconnect, send, getMessageCount, clearMessages, getSize} = useSocket();
     const [upQuestion, setUpQuestion] = useState<FetchedQuestion | null>(null);
     const loadInQuestion = async (questionNumber: number) => {
         const thing = await fetch(`http://localhost:8000/api/question/${setNumber}/${questionNumber}`);
@@ -72,6 +74,11 @@ const Question: React.FC = () => {
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
                                     }
+                                    send({
+                                        to: 'host',
+                                        content: selectedText,
+                                        type: 'text'
+                                    });
                                     navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                                 }}>{currentQuestion.answers[0]}</div>
                             <div className="button inline" onClick={(e)=>{
@@ -81,6 +88,11 @@ const Question: React.FC = () => {
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
                                     }
+                                    send({
+                                        to: 'host',
+                                        content: selectedText,
+                                        type: 'text'
+                                    });
                                     navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                                 }}>{currentQuestion.answers[1]}</div>
                         </div>
@@ -92,6 +104,11 @@ const Question: React.FC = () => {
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
                                     }
+                                    send({
+                                        to: 'host',
+                                        content: selectedText,
+                                        type: 'text'
+                                    });
                                     navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                                 }}>{currentQuestion.answers[2]}</div>
                             <div className="button inline" onClick={(e)=>{
@@ -101,6 +118,11 @@ const Question: React.FC = () => {
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
                                     }
+                                    send({
+                                        to: 'host',
+                                        content: selectedText,
+                                        type: 'text'
+                                    });
                                     navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                                 }}>{currentQuestion.answers[3]}</div>
                         </div>

@@ -8,7 +8,7 @@ type ServerMessage = {
 
 type ClientMessage = {
     to: string;
-    content: string;
+    content: string | null;
     type: string;
 }
 
@@ -23,10 +23,15 @@ function useWebSocket() {
     //re-renders when it changes, and lets you access and manipulate
     //the WebSocket object whenever needed
     const wsRef = useRef<WebSocket | null>(null);
+    const messagesRef = useRef<ServerMessage[]>([]);
+    const numberRef = useRef(0);
 
     //running the connect method connects our client, indicated by
     //the websocket, to the server, and sets the current property of our
     //useRef for a websocket to aforementioned client websocket
+    const getSize = () => {
+        return numberRef.current;
+    }
     const connect = (clientId: string) => {
         if (wsRef.current) return;
         const ws = new WebSocket(`ws://localhost:8000/ws?client_id=${clientId}`);
@@ -36,7 +41,15 @@ function useWebSocket() {
         };
         ws.onmessage = (event) => {
             const message = JSON.parse(event.data);
-            console.log(message);
+            if(message["from"] !== "server"){
+                console.log(message["from"]);
+                messagesRef.current.push(message);
+            }
+            else{
+                const num = Number(message["content"]);
+                console.log(num);
+                numberRef.current = num;
+            }
         };
         ws.onerror = (err) => {
             console.error('WebSocket error:', err);
@@ -64,7 +77,15 @@ function useWebSocket() {
         }
     };
 
-    return {connect, disconnect, send};
+    const getMessageCount = () => {
+        return messagesRef.current.length;
+    };
+    
+    const clearMessages = () => {
+        messagesRef.current = [];
+    }
+
+    return {connect, disconnect, send, getMessageCount, clearMessages, getSize};
 
 }
 

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
-import useWebSocket from './useWebSocket';
+import { useSocket } from './WebSocketContext';
 
 function Saved(){
     const[saved, setSaved] = useState<number[]>([]);
     const navigate = useNavigate();
-    const {connect, disconnect, send} = useWebSocket();
+    const {connect, disconnect, send, getMessageCount, clearMessages, getSize} = useSocket();
     const loadInSets = async () => {
         const response = await fetch("http://localhost:8000/api/setNumbers");
         const data = await response.json();

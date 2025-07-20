@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {useNavigate, useLocation} from 'react-router-dom';
-import useWebSocket from './useWebSocket';
+import { useSocket } from './WebSocketContext';
 
 function App() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function App() {
   const setNumber = location.state.newEntry;
   const setSize = location.state.thisSize;
   const [inActive, setInActive] = useState(false);
-  const { connect, disconnect, send } = useWebSocket();
+  const { connect, disconnect, send, getMessageCount, clearMessages, getSize } = useSocket();
   const handleSubmit = () => {
     console.log("Hello");
     //player client will connect to server here

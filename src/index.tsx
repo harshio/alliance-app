@@ -11,6 +11,7 @@ import Login from './Login';
 import IDScreen from './IDScreen';
 import Saved from './Saved';
 import reportWebVitals from './reportWebVitals';
+import { WebSocketProvider } from './WebSocketContext';
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <WebSocketProvider>
+      <RouterProvider router={router} />
+    </WebSocketProvider>
   </React.StrictMode>
 );
 
