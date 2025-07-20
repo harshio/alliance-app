@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
+import useWebSocket from './useWebSocket';
 
 function Saved(){
     const[saved, setSaved] = useState<number[]>([]);
     const navigate = useNavigate();
+    const {connect, disconnect, send} = useWebSocket();
     const loadInSets = async () => {
         const response = await fetch("http://localhost:8000/api/setNumbers");
         const data = await response.json();
@@ -22,6 +24,9 @@ function Saved(){
             {saved.map((num) =>(
                 <div className="button" onClick={()=>{
                     const setIndex = num;
+                    //host client will connect to server here (will only disconnect upon closing out of the tab, which automatically happens in Google Chrome)
+                    connect('host');
+                    localStorage.setItem("activeSetNumber", setIndex.toString());
                     navigate('/id', {state: {setIndex}});
                 }}>
                     SetNumber: {num}

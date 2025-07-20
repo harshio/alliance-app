@@ -8,6 +8,7 @@ function Results(){
     const location = useLocation() as {state: {name: string, pointTotal: number}};
     const name = location.state.name;
     const score = location.state.pointTotal;
+    //before the navigate in the onClick, the player client will disconnect from the server
     return (
         <div>
             <div className="titleBar">
