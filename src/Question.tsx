@@ -28,7 +28,7 @@ const Question: React.FC = () => {
     const setSize = location.state.setSize;
     const [questionIndex, setQuestionIndex] = useState(1);
     const [pointTotal, setPointTotal] = useState(0);
-    const {connect, disconnect, send, getMessageCount, clearMessages, getSize} = useSocket();
+    const {connect, disconnect, send, latestMessage} = useSocket();
     const [upQuestion, setUpQuestion] = useState<FetchedQuestion | null>(null);
     const loadInQuestion = async (questionNumber: number) => {
         const thing = await fetch(`http://localhost:8000/api/question/${setNumber}/${questionNumber}`);

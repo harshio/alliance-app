@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 type ServerMessage = {
     from: string;
@@ -23,15 +23,12 @@ function useWebSocket() {
     //re-renders when it changes, and lets you access and manipulate
     //the WebSocket object whenever needed
     const wsRef = useRef<WebSocket | null>(null);
-    const messagesRef = useRef<ServerMessage[]>([]);
-    const numberRef = useRef(0);
+    //We will create a global useState that's also rooted at index.tsx, the root or whatever
+    const [latestMessage, setLatestMessage] = useState<ServerMessage | null>(null);
 
     //running the connect method connects our client, indicated by
     //the websocket, to the server, and sets the current property of our
     //useRef for a websocket to aforementioned client websocket
-    const getSize = () => {
-        return numberRef.current;
-    }
     const connect = (clientId: string) => {
         if (wsRef.current) return;
         const ws = new WebSocket(`ws://localhost:8000/ws?client_id=${clientId}`);
@@ -41,15 +38,8 @@ function useWebSocket() {
         };
         ws.onmessage = (event) => {
             const message = JSON.parse(event.data);
-            if(message["from"] !== "server"){
-                console.log(message["from"]);
-                messagesRef.current.push(message);
-            }
-            else{
-                const num = Number(message["content"]);
-                console.log(num);
-                numberRef.current = num;
-            }
+            console.log("Received message:", message);
+            setLatestMessage(message);
         };
         ws.onerror = (err) => {
             console.error('WebSocket error:', err);
@@ -77,15 +67,7 @@ function useWebSocket() {
         }
     };
 
-    const getMessageCount = () => {
-        return messagesRef.current.length;
-    };
-    
-    const clearMessages = () => {
-        messagesRef.current = [];
-    }
-
-    return {connect, disconnect, send, getMessageCount, clearMessages, getSize};
+    return {connect, disconnect, send, latestMessage};
 
 }
 

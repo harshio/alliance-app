@@ -10,6 +10,7 @@ import Create from './Create';
 import Login from './Login';
 import IDScreen from './IDScreen';
 import Saved from './Saved';
+import Room from './Room';
 import reportWebVitals from './reportWebVitals';
 import { WebSocketProvider } from './WebSocketContext';
 
@@ -52,6 +53,11 @@ const router = createBrowserRouter([
   {
     path: '/saved',
     element: <Saved />,
+    errorElement: <div>404 Not Found</div>
+  },
+  {
+    path: '/room',
+    element: <Room />,
     errorElement: <div>404 Not Found</div>
   }
 ]);

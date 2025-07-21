@@ -13,7 +13,7 @@ function App() {
   const setNumber = location.state.newEntry;
   const setSize = location.state.thisSize;
   const [inActive, setInActive] = useState(false);
-  const { connect, disconnect, send, getMessageCount, clearMessages, getSize } = useSocket();
+  const { connect, disconnect, send, latestMessage } = useSocket();
   const handleSubmit = () => {
     console.log("Hello");
     //player client will connect to server here
@@ -21,7 +21,7 @@ function App() {
     const checking = Number(localStorage.getItem("activeSetNumber"));
     if(checking === setNumber){
       connect(name);
-      navigate('/questions', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
+      navigate('/room', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
     }
     else{
       setInActive(true)

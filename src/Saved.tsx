@@ -7,7 +7,7 @@ import { useSocket } from './WebSocketContext';
 function Saved(){
     const[saved, setSaved] = useState<number[]>([]);
     const navigate = useNavigate();
-    const {connect, disconnect, send, getMessageCount, clearMessages, getSize} = useSocket();
+    const {connect, disconnect, send, latestMessage} = useSocket();
     const loadInSets = async () => {
         const response = await fetch("http://localhost:8000/api/setNumbers");
         const data = await response.json();
