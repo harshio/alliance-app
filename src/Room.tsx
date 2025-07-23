@@ -27,7 +27,6 @@ function Room() {
         if (latestMessage) {
             const list: string[] = JSON.parse(latestMessage.content)
             setPlayers(list);
-            localStorage.setItem("playerCount", JSON.stringify(players.length));
         }
     }, [latestMessage]);
     return(
