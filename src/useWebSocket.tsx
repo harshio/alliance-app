@@ -29,30 +29,30 @@ function useWebSocket() {
     //running the connect method connects our client, indicated by
     //the websocket, to the server, and sets the current property of our
     //useRef for a websocket to aforementioned client websocket
-    const connect = (clientId: string) => {
-        if (wsRef.current) return;
-        const ws = new WebSocket(`ws://localhost:8000/ws?client_id=${clientId}`);
-
-        ws.onopen = () => {
-            console.log(`Connected to the server, ${clientId} is`);
-        };
-        ws.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            console.log("Received message:", message);
-            setLatestMessage(message);
-        };
-        ws.onerror = (err) => {
-            console.error('WebSocket error:', err);
-        };
-        ws.onclose = () => {
-            console.log('Disconnected from server');
-        };
-        //here we're setting our useRef's 'current' property to the 
-        //client that just connected to the server,
-        //indicated by the websocket. this will stay
-        //true even as we reload or navigate pages or whatever
-        wsRef.current = ws;
+    const connect = (clientId: string, setNumber: number): Promise<boolean> => {
+        return new Promise((resolve, reject) => {
+            if (wsRef.current) return resolve(true);
+    
+            const ws = new WebSocket(`ws://localhost:8000/ws?client_id=${clientId}&setNumber=${setNumber}`);
+            ws.onopen = () => {
+                console.log(`Connected to the server as ${clientId}`);
+                wsRef.current = ws;
+                resolve(true);
+            };
+            ws.onerror = (err) => {
+                console.error('WebSocket error:', err);
+                reject(false);
+            };
+            ws.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                setLatestMessage(message);
+            };
+            ws.onclose = () => {
+                console.log('Disconnected from server');
+            };
+        });
     };
+    
 
     const disconnect = () => {
         if (wsRef.current) {

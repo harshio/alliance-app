@@ -22,11 +22,18 @@ function Saved(){
                 <h1>Alliance - <p className="playerName">Saved Sets</p></h1>
             </div>
             {saved.map((num) =>(
-                <div className="button" onClick={()=>{
+                <div className="button" onClick={async ()=>{
                     const setIndex = num;
                     //host client will connect to server here (will only disconnect upon closing out of the tab, which automatically happens in Google Chrome)
-                    connect('host');
-                    localStorage.setItem("activeSetNumber", setIndex.toString());
+                    const connected = await connect('host', 7);
+                    if(connected){
+                        console.log("FUCK");
+                        send({
+                            to: 'server',
+                            content: setIndex.toString(),
+                            type: 'text'
+                        })
+                    }
                     navigate('/id', {state: {setIndex}});
                 }}>
                     SetNumber: {num}

@@ -14,17 +14,13 @@ function App() {
   const setSize = location.state.thisSize;
   const [inActive, setInActive] = useState(false);
   const { connect, disconnect, send, latestMessage } = useSocket();
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("Hello");
     //player client will connect to server here
     //only if useRef.current equals setNumber, can we connect to the server and navigate to the page
-    const checking = Number(localStorage.getItem("activeSetNumber"));
-    if(checking === setNumber){
-      connect(name);
+    const connected = await connect(name, setNumber);
+    if(connected){
       navigate('/room', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
-    }
-    else{
-      setInActive(true)
     }
   }
   //apparently you can pass in states when you navigate
