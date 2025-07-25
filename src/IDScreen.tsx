@@ -18,8 +18,7 @@ function IDScreen(){
             {visible && <div className="button" onClick={()=>{
                 setVisible(!visible);
                 send({
-                    type: 'startGame',
-                    content: true
+                    type: 'startGame'
                 });
             }}>Start Game</div>}
         </div>

@@ -14,7 +14,7 @@ interface LocationState{
 }
 
 function Room() {
-    const {connect, disconnect, send, latestMessage, canStart} = useSocket();
+    const {connect, disconnect, send, latestMessage, subscribeToMessageType} = useSocket();
     const[players, setPlayers] = useState<string[]>([]);
     const navigate = useNavigate();
     const location = useLocation() as LocationState;
@@ -30,10 +30,12 @@ function Room() {
         }
     }, [latestMessage]);
     useEffect(() => {
-        if (canStart) {
-            navigate('/questions', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
-        }
-    }, [canStart]);
+        subscribeToMessageType("startGame", () => {
+          navigate('/questions', {
+            state: { currQuestion, name, pointTotal, setNumber, setSize }
+          });
+        });
+      }, []);
     return(
         <div>
             <div className="titleBar">

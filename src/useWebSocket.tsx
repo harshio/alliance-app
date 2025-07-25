@@ -5,11 +5,6 @@ type playerNames = {
     content: string[];
 }
 
-type startGame = {
-    type: string;
-    content: boolean;
-}
-
 type ClientMessage = {
     to: string;
     content: string | null;
@@ -38,13 +33,21 @@ function useWebSocket() {
     const wsRef = useRef<WebSocket | null>(null);
     //We will create a global useState that's also rooted at index.tsx, the root or whatever
     const [latestMessage, setLatestMessage] = useState<playerNames | null>(null);
-    const [canStart, setCanStart] = useState<startGame | null>(null);
 
     //running the connect method connects our client, indicated by
     //the websocket, to the server, and sets the current property of our
     //useRef for a websocket to aforementioned client websocket
 
     //for some reason, causing latestMessage to change makes a 404 Error
+
+    const listeners = useRef<{ [key: string]: ((content: any) => void)[] }>({});
+
+    const subscribeToMessageType = (type: string, callback: (content: any) => void) => {
+        if (!listeners.current[type]) {
+            listeners.current[type] = [];
+        }
+        listeners.current[type].push(callback);
+    };
 
     const hostConnect = (clientId: string): Promise<boolean> => {
         return new Promise((resolve, reject) => {
@@ -69,7 +72,7 @@ function useWebSocket() {
         });
     }
 
-    const connect = (clientId: string, setNumber: number): Promise<boolean> => {
+    const connect = (clientId: string, setNumber: number, onStartGame?: () => void): Promise<boolean> => {
         return new Promise((resolve, reject) => {
             if (wsRef.current) return resolve(true);
     
@@ -85,12 +88,11 @@ function useWebSocket() {
             };
             ws.onmessage = (event) => {
                 const message = JSON.parse(event.data);
+                const { type, content } = message;
                 if(message["type"] == "playerNames"){
                     setLatestMessage(message);
                 }
-                else if(message["type"] == "startGame"){
-                    setCanStart(message);
-                }
+                listeners.current[type]?.forEach(cb => cb(content));
             };
             ws.onclose = () => {
                 console.log('Disconnected from server');
@@ -112,7 +114,7 @@ function useWebSocket() {
         }
     };
 
-    return {connect, disconnect, send, latestMessage, hostConnect, canStart};
+    return {connect, disconnect, send, latestMessage, hostConnect, subscribeToMessageType};
 
 }
 
