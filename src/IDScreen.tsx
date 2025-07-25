@@ -17,6 +17,10 @@ function IDScreen(){
             <p className="endMessage">Your Game Number is {unique}</p>
             {visible && <div className="button" onClick={()=>{
                 setVisible(!visible);
+                send({
+                    type: 'startGame',
+                    content: true
+                });
             }}>Start Game</div>}
         </div>
     );

@@ -14,7 +14,7 @@ interface LocationState{
 }
 
 function Room() {
-    const {connect, disconnect, send, latestMessage} = useSocket();
+    const {connect, disconnect, send, latestMessage, canStart} = useSocket();
     const[players, setPlayers] = useState<string[]>([]);
     const navigate = useNavigate();
     const location = useLocation() as LocationState;
@@ -25,10 +25,15 @@ function Room() {
     const setSize = location.state.setSize;
     useEffect(() => {
         if (latestMessage) {
-            const list: string[] = JSON.parse(latestMessage.content)
+            const list: string[] = latestMessage["content"]
             setPlayers(list);
         }
     }, [latestMessage]);
+    useEffect(() => {
+        if (canStart) {
+            navigate('/questions', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
+        }
+    }, [canStart]);
     return(
         <div>
             <div className="titleBar">

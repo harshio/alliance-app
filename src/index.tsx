@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <App />,
-    errorElement: <div>404 Not Found</div>
+    errorElement: <div>404 Not Found OH POO</div>
   },
   {
     path: '/questions',
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
   {
     path: '/room',
     element: <Room />,
-    errorElement: <div>404 Not Found</div>
+    errorElement: <div>404 Not Found YEAH</div>
   }
 ]);
 const root = ReactDOM.createRoot(

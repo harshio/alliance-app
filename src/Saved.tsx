@@ -7,7 +7,7 @@ import { useSocket } from './WebSocketContext';
 function Saved(){
     const[saved, setSaved] = useState<number[]>([]);
     const navigate = useNavigate();
-    const {connect, disconnect, send, latestMessage} = useSocket();
+    const {connect, disconnect, send, latestMessage, hostConnect} = useSocket();
     const loadInSets = async () => {
         const response = await fetch("http://localhost:8000/api/setNumbers");
         const data = await response.json();
@@ -25,13 +25,12 @@ function Saved(){
                 <div className="button" onClick={async ()=>{
                     const setIndex = num;
                     //host client will connect to server here (will only disconnect upon closing out of the tab, which automatically happens in Google Chrome)
-                    const connected = await connect('host', 7);
+                    const connected = await hostConnect('host');
                     if(connected){
                         console.log("FUCK");
                         send({
-                            to: 'server',
-                            content: setIndex.toString(),
-                            type: 'text'
+                            type: 'sessionID',
+                            content: setIndex
                         })
                     }
                     navigate('/id', {state: {setIndex}});

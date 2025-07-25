@@ -1,9 +1,13 @@
 import { useRef, useState } from 'react';
 
-type ServerMessage = {
-    from: string;
-    content: string;
+type playerNames = {
     type: string;
+    content: string[];
+}
+
+type startGame = {
+    type: string;
+    content: boolean;
 }
 
 type ClientMessage = {
@@ -11,6 +15,15 @@ type ClientMessage = {
     content: string | null;
     type: string;
 }
+
+type JSONValue =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: JSONValue }
+  | JSONValue[];
+
 
 function useWebSocket() {
     //useRef is a React Hook that gives you a mutable container object
@@ -24,11 +37,38 @@ function useWebSocket() {
     //the WebSocket object whenever needed
     const wsRef = useRef<WebSocket | null>(null);
     //We will create a global useState that's also rooted at index.tsx, the root or whatever
-    const [latestMessage, setLatestMessage] = useState<ServerMessage | null>(null);
+    const [latestMessage, setLatestMessage] = useState<playerNames | null>(null);
+    const [canStart, setCanStart] = useState<startGame | null>(null);
 
     //running the connect method connects our client, indicated by
     //the websocket, to the server, and sets the current property of our
     //useRef for a websocket to aforementioned client websocket
+
+    //for some reason, causing latestMessage to change makes a 404 Error
+
+    const hostConnect = (clientId: string): Promise<boolean> => {
+        return new Promise((resolve, reject) => {
+            if (wsRef.current) return resolve(true);
+    
+            const ws = new WebSocket(`ws://localhost:8000/ws?client_id=${clientId}`);
+            ws.onopen = () => {
+                console.log(`Connected to the server as ${clientId}`);
+                wsRef.current = ws;
+                resolve(true);
+            };
+            ws.onerror = (err) => {
+                console.error('WebSocket error:', err);
+                reject(false);
+            };
+            ws.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+            };
+            ws.onclose = () => {
+                console.log('Disconnected from server');
+            };
+        });
+    }
+
     const connect = (clientId: string, setNumber: number): Promise<boolean> => {
         return new Promise((resolve, reject) => {
             if (wsRef.current) return resolve(true);
@@ -45,7 +85,12 @@ function useWebSocket() {
             };
             ws.onmessage = (event) => {
                 const message = JSON.parse(event.data);
-                setLatestMessage(message);
+                if(message["type"] == "playerNames"){
+                    setLatestMessage(message);
+                }
+                else if(message["type"] == "startGame"){
+                    setCanStart(message);
+                }
             };
             ws.onclose = () => {
                 console.log('Disconnected from server');
@@ -61,13 +106,13 @@ function useWebSocket() {
         }
     };
 
-    const send = (message: ClientMessage) => {
+    const send = (message: JSONValue) => {
         if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN){
             wsRef.current.send(JSON.stringify(message));
         }
     };
 
-    return {connect, disconnect, send, latestMessage};
+    return {connect, disconnect, send, latestMessage, hostConnect, canStart};
 
 }
 
