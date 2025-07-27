@@ -28,7 +28,7 @@ const Question: React.FC = () => {
     const setSize = location.state.setSize;
     const [questionIndex, setQuestionIndex] = useState(1);
     const [pointTotal, setPointTotal] = useState(0);
-    const {connect, disconnect, send, latestMessage} = useSocket();
+    const {connect, disconnect, send, latestMessage, subscribeToMessageType} = useSocket();
     const [upQuestion, setUpQuestion] = useState<FetchedQuestion | null>(null);
     const loadInQuestion = async (questionNumber: number) => {
         const thing = await fetch(`http://localhost:8000/api/question/${setNumber}/${questionNumber}`);
@@ -44,6 +44,16 @@ const Question: React.FC = () => {
         loadInQuestion(again);
         setPointTotal(numby);
     }, []);
+
+    useEffect(() => {
+        if (upQuestion) {
+            subscribeToMessageType("questionDone", () => {
+                navigate('/between', {
+                  state: { questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize }
+                });
+            });
+        }
+    }, [upQuestion]);
 
     const navigate = useNavigate();
 
@@ -75,11 +85,8 @@ const Question: React.FC = () => {
                                         ohBoy = true;
                                     }
                                     send({
-                                        to: 'host',
-                                        content: selectedText,
-                                        type: 'text'
+                                        type: 'playerDone'
                                     });
-                                    navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                                 }}>{currentQuestion.answers[0]}</div>
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
@@ -87,11 +94,8 @@ const Question: React.FC = () => {
                                         ohBoy = true;
                                     }
                                     send({
-                                        to: 'host',
-                                        content: selectedText,
-                                        type: 'text'
+                                        type: 'playerDone'
                                     });
-                                    navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                                 }}>{currentQuestion.answers[1]}</div>
                         </div>
                         <div className="answer2">
@@ -101,11 +105,8 @@ const Question: React.FC = () => {
                                         ohBoy = true;
                                     }
                                     send({
-                                        to: 'host',
-                                        content: selectedText,
-                                        type: 'text'
+                                        type: 'playerDone'
                                     });
-                                    navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                                 }}>{currentQuestion.answers[2]}</div>
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
@@ -113,11 +114,8 @@ const Question: React.FC = () => {
                                         ohBoy = true;
                                     }
                                     send({
-                                        to: 'host',
-                                        content: selectedText,
-                                        type: 'text'
+                                        type: 'playerDone'
                                     });
-                                    navigate('/between', {state: {questionIndex, name, ohBoy, amountLeft, pointTotal, point, setNumber, setSize}});
                                 }}>{currentQuestion.answers[3]}</div>
                         </div>
                     </div>
