@@ -53,6 +53,8 @@ const Question: React.FC = () => {
 
     const currentQuestion = upQuestion as FetchedQuestion;
     const point = currentQuestion.points;
+    const amountLeft = setSize - questionIndex;
+    let ohBoy = false;
     return (
         <div className="fuck">
             <div className="titleBar">
@@ -69,8 +71,6 @@ const Question: React.FC = () => {
                         <div className="answer1">
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
-                                    const amountLeft = setSize - questionIndex;
-                                    let ohBoy = false;
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
                                     }
@@ -83,8 +83,6 @@ const Question: React.FC = () => {
                                 }}>{currentQuestion.answers[0]}</div>
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
-                                    const amountLeft = setSize - questionIndex;
-                                    let ohBoy = false;
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
                                     }
@@ -99,8 +97,6 @@ const Question: React.FC = () => {
                         <div className="answer2">
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
-                                    const amountLeft = setSize - questionIndex;
-                                    let ohBoy = false;
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
                                     }
@@ -113,8 +109,6 @@ const Question: React.FC = () => {
                                 }}>{currentQuestion.answers[2]}</div>
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
-                                    const amountLeft = setSize - questionIndex;
-                                    let ohBoy = false;
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
                                     }
