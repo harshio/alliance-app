@@ -37,12 +37,9 @@ function Room() {
         });
       }, []);
     return(
-        <div>
+        <div className="prettyRoom">
             <div className="titleBar">
-                <h1>Alliance</h1>
-            </div>
-            <div className="button" onClick = {()=>{navigate('/questions', {state: { currQuestion, name, pointTotal, setNumber, setSize }});}}>
-                Go to First Question
+                <h1>Alliance - <p className="playerName">Room</p></h1>
             </div>
             <div className="playerList">
                 {
@@ -50,6 +47,9 @@ function Room() {
                         <p>{name}</p>
                     )
                 }
+            </div>
+            <div className="playerListRight">
+
             </div>
         </div>
     );
