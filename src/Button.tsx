@@ -14,7 +14,7 @@ interface Props {
 
 function Button(props: Props){
     return(
-        <div className={`button ${props.variation}`}>props.text</div>
+        <div className={`button ${props.variation}`}>{props.text}</div>
     );
 }
 
