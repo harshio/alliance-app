@@ -27,6 +27,7 @@ const Question: React.FC = () => {
     const setNumber = location.state.setNumber;
     const setSize = location.state.setSize;
     const [questionIndex, setQuestionIndex] = useState(1);
+    const [clicked, setClicked] = useState(false);
     const [pointTotal, setPointTotal] = useState(0);
     const {connect, disconnect, send, latestMessage, subscribeToMessageType} = useSocket();
     const [upQuestion, setUpQuestion] = useState<FetchedQuestion | null>(null);
@@ -77,7 +78,7 @@ const Question: React.FC = () => {
                         <p>{currentQuestion.text}</p>
                         <div className="image">Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi</div>
                     </div>
-                    <div className="answers">
+                    {!clicked && <div className="answers">
                         <div className="answer1">
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
@@ -87,6 +88,7 @@ const Question: React.FC = () => {
                                     send({
                                         type: 'playerDone'
                                     });
+                                    setClicked(true);
                                 }}>{currentQuestion.answers[0]}</div>
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
@@ -96,6 +98,7 @@ const Question: React.FC = () => {
                                     send({
                                         type: 'playerDone'
                                     });
+                                    setClicked(true);
                                 }}>{currentQuestion.answers[1]}</div>
                         </div>
                         <div className="answer2">
@@ -107,6 +110,7 @@ const Question: React.FC = () => {
                                     send({
                                         type: 'playerDone'
                                     });
+                                    setClicked(true);
                                 }}>{currentQuestion.answers[2]}</div>
                             <div className="button inline" onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
@@ -116,9 +120,10 @@ const Question: React.FC = () => {
                                     send({
                                         type: 'playerDone'
                                     });
+                                    setClicked(true);
                                 }}>{currentQuestion.answers[3]}</div>
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>
