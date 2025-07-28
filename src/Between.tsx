@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
@@ -18,6 +18,21 @@ function Between() {
         pointTotal = pointTotal + worth;
         console.log(pointTotal);
     }
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if(remaining === 0){
+                navigate('/results', {state: {name, pointTotal}});
+            }
+            else{
+                navigate('/questions', {state: {currQuestion, name, pointTotal, setNumber, setSize}});
+            }
+        }, 5000);
+    
+        // Optional cleanup if component unmounts before timeout fires
+        return () => clearTimeout(timeout);
+      }, []);
+
     return(
         <div>
             <div className="titleBar">
@@ -25,15 +40,6 @@ function Between() {
             </div>
             {yeahOkay && <p className="endMessage">Correct! You earn {worth} points</p>}
             {!yeahOkay && <p className="endMessage">Wrong! You earn 0 points</p>}
-            <div className="button" onClick = {()=>{
-                if(remaining === 0){
-                    navigate('/results', {state: {name, pointTotal}});
-                }
-                else{
-                    navigate('/questions', {state: {currQuestion, name, pointTotal, setNumber, setSize}});
-                }
-                console.log(currQuestion);
-            }}>Next</div>
         </div>
     );
 }
