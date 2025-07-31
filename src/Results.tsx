@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
+import Button from './Button';
 
 function Results(){
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Results(){
                 <h1>Alliance</h1>
             </div>
             <p className="endMessage">Great job, {name}! You scored {score} points!</p>
-            <div className="button" onClick = {()=>{navigate('/')}}>Play Again</div>
+            <Button text={"Play Again"} variation={''} onClick={()=>{navigate('/')}}/>
         </div>
     );
 }

@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSocket } from './WebSocketContext';
 import './App.css';
+import Button from './Button';
+import SpecialButton from './SpecialButton';
 
 interface LocationState{
     state: {
@@ -80,7 +82,7 @@ const Question: React.FC = () => {
                     </div>
                     {!clicked && <div className="answers">
                         <div className="answer1">
-                            <div className="button inline" onClick={(e)=>{
+                            <SpecialButton text={currentQuestion.answers[0]} variation={'inline'} onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
@@ -89,8 +91,8 @@ const Question: React.FC = () => {
                                         type: 'playerDone'
                                     });
                                     setClicked(true);
-                                }}>{currentQuestion.answers[0]}</div>
-                            <div className="button inline" onClick={(e)=>{
+                            }}/>
+                            <SpecialButton text={currentQuestion.answers[1]} variation={'inline'} onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
@@ -99,10 +101,10 @@ const Question: React.FC = () => {
                                         type: 'playerDone'
                                     });
                                     setClicked(true);
-                                }}>{currentQuestion.answers[1]}</div>
+                            }}/>
                         </div>
                         <div className="answer2">
-                            <div className="button inline" onClick={(e)=>{
+                            <SpecialButton text={currentQuestion.answers[2]} variation={'inline'} onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
@@ -111,8 +113,8 @@ const Question: React.FC = () => {
                                         type: 'playerDone'
                                     });
                                     setClicked(true);
-                                }}>{currentQuestion.answers[2]}</div>
-                            <div className="button inline" onClick={(e)=>{
+                            }}/>
+                            <SpecialButton text={currentQuestion.answers[3]} variation={'inline'} onClick={(e)=>{
                                     const selectedText = e.currentTarget.textContent;
                                     if(selectedText === currentQuestion.correctAnswer){
                                         ohBoy = true;
@@ -121,7 +123,7 @@ const Question: React.FC = () => {
                                         type: 'playerDone'
                                     });
                                     setClicked(true);
-                                }}>{currentQuestion.answers[3]}</div>
+                            }}/>
                         </div>
                     </div>}
                 </div>

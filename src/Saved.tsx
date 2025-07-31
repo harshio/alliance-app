@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import { useSocket } from './WebSocketContext';
+import Button from './Button';
 
 function Saved(){
     const[saved, setSaved] = useState<number[]>([]);
@@ -22,7 +23,7 @@ function Saved(){
                 <h1>Alliance - <p className="playerName">Saved Sets</p></h1>
             </div>
             {saved.map((num) =>(
-                <div className="button" onClick={async ()=>{
+                <Button text={`SetNumber: ${num}`} variation={''} onClick={async ()=>{
                     const setIndex = num;
                     //host client will connect to server here (will only disconnect upon closing out of the tab, which automatically happens in Google Chrome)
                     const connected = await hostConnect('host');
@@ -34,9 +35,7 @@ function Saved(){
                         })
                     }
                     navigate('/id', {state: {setIndex}});
-                }}>
-                    SetNumber: {num}
-                </div>
+                }}/>
             ))}
         </div>
     );

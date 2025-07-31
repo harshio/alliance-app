@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Button from './Button';
 import {useNavigate, useLocation} from 'react-router-dom';
 import { useSocket } from './WebSocketContext';
 
@@ -33,7 +34,7 @@ function App() {
         <p>Write your name here</p>
         <input type="text" name="username" placeholder="Abraham Lincoln"
         value = {name} onChange = {(e) => setName(e.target.value)}/>
-        <div className="button" onClick = {handleSubmit}>Submit</div>
+        <Button text={'Start Game'} variation={''} onClick={handleSubmit}/>
         {inActive && <p>Put in the Game ID of an active session</p>}
       </div>
 

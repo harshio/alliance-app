@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
+import Button from './Button';
 
 function Create() {
     const[nameOne, setNameOne] = useState('');
@@ -54,10 +55,10 @@ function Create() {
             {!beginning && <div className="nameEntry">
                 <p>Enter name of set: </p>
                 <input type="text" placeholder="Abraham Lincoln" value={name} onChange={(e) => setName(e.target.value)}/>
-                <div className="button" onClick={()=>{
+                <Button text={'Confirm'} variation={''} onClick={()=>{
                     handleConfirm();
                     setBeginning(true);
-                }}>Confirm</div>
+                }}/>
             </div>}
             {beginning && <div className="questionBox">
                 <div className="format">
@@ -69,66 +70,60 @@ function Create() {
                     <input type="text" value={pointValue} onChange={(e) => setPointValue(e.target.value)}/>
                 </div>
                 <div className="format">
-                    {allDone && <div className={`button ${clickOne ? 'clicked' : ''}`}
-                    onClick={() => {
+                    {allDone && <Button text={nameOne} variation={clickOne ? 'clicked': ''} onClick={() => {
                         if(clickOne){
                             setClickOne(false);
                         }
                         else{
                             setClickOne(true);
                         }
-                    }}>{nameOne}</div>}
+                    }}/>}
                     {!allDone && <p>First Answer: </p>}
                     {!allDone && <input type="text" value={nameOne} onChange={(e) => setNameOne(e.target.value)}/>}
                 </div>
                 <div className="format">
-                    {allDone && <div className={`button ${clickTwo ? 'clicked' : ''}`}
-                    onClick={() => {
+                    {allDone && <Button text={nameTwo} variation={clickTwo ? 'clicked': ''} onClick={() => {
                         if(clickTwo){
                             setClickTwo(false);
                         }
                         else{
                             setClickTwo(true);
                         }
-                    }}>{nameTwo}</div>}
+                    }}/>}
                     {!allDone && <p>Second Answer: </p>}
                     {!allDone && <input type="text" value={nameTwo} onChange={(e) => setNameTwo(e.target.value)}/>}
                 </div>
                 <div className="format">
-                    {allDone && <div className={`button ${clickThree ? 'clicked' : ''}`}
-                    onClick={() => {
+                    {allDone && <Button text={nameThree} variation={clickThree ? 'clicked': ''} onClick={() => {
                         if(clickThree){
                             setClickThree(false);
                         }
                         else{
                             setClickThree(true);
                         }
-                    }}>{nameThree}</div>}
+                    }}/>}
                     {!allDone && <p>Third Answer: </p>}
                     {!allDone && <input type="text" value={nameThree} onChange={(e) => setNameThree(e.target.value)}/>}
                 </div>
                 <div className="format">
-                    {allDone && <div className={`button ${clickFour ? 'clicked' : ''}`}
-                    onClick={() => {
+                    {allDone && <Button text={nameFour} variation={clickFour ? 'clicked': ''} onClick={() => {
                         if(clickFour){
                             setClickFour(false);
                         }
                         else{
                             setClickFour(true);
                         }
-                    }}>{nameFour}</div>}
+                    }}/>}
                     {!allDone && <p>Fourth Answer: </p>}
                     {!allDone && <input type="text" value={nameFour} onChange={(e) => setNameFour(e.target.value)}/>}
                 </div>
             </div>}
-            {beginning && !allDone && <div className="button" onClick= {()=>{setAllDone(true)}}>
-                +
-            </div>}
-            {beginning && !allDone && <div className="button" onClick={()=>{
-                const setIndex = currentNumber;
-                navigate('/saved');
-            }}>Complete Game</div>}
-            {beginning && allDone && <div className="button" onClick= {()=>{
+            {beginning && !allDone && <Button text={'+'} variation={''} onClick={()=>{setAllDone(true)}}/>}
+            {beginning && !allDone && <Button text={'Complete Game'} variation={''} onClick={() => {
+	                const setIndex = currentNumber;
+	                navigate('/saved');
+            }}/>}
+            {beginning && allDone && <Button text={'Confirm'} variation={''} onClick={()=>{
                 let correctAnswer = "";
                 if(clickOne){
                     correctAnswer = nameOne;
@@ -160,9 +155,7 @@ function Create() {
                 setClickFour(false);
                 setAllDone(false);
                 setQuestionNumber(questionNumber + 1);
-            }}>
-                Confirm
-            </div>}
+            }} />}
         </div>
     );
 }

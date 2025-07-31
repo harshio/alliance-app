@@ -10,13 +10,13 @@ import { useSocket } from './WebSocketContext';
 interface Props {
     text: string; //there's always text on a button
     variation: string; //there's usually some sort of conditional JSX modifying the class of the button
-    onClick: () => unknown;
+    onClick: (e: React.MouseEvent<HTMLDivElement>) => unknown;
 }
 
-function Button(props: Props){
+function SpecialButton(props: Props){
     return(
         <div className={`button ${props.variation}`} onClick={props.onClick}>{props.text}</div>
     );
 }
 
-export default Button;
+export default SpecialButton;

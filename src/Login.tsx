@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
+import Button from './Button';
 
 function Login() {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Login() {
         <div className="nameEntry">
             <p>Enter ID here</p>
             <input type="text" name="username" placeholder="12345" value={entry} onChange={(e)=>{setEntry(e.target.value)}}/>
-            <div className="button" onClick={async ()=>{
+            <Button text={'Submit'} variation={''} onClick={async ()=>{
                 const newEntry = Number(entry);
                 const thisSize = await handleSubmit(newEntry);
                 setSize(thisSize);
@@ -31,7 +32,7 @@ function Login() {
                 else{
                     setSize(-1);
                 }
-            }}>Submit</div>
+            }}/>
             {size == -1 && <p>Put in a valid Game ID</p>}
         </div>
     </div>

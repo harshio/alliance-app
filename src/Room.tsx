@@ -48,9 +48,6 @@ function Room() {
                     )
                 }
             </div>
-            <div className="playerListRight">
-
-            </div>
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
+import Button from './Button';
 import { useSocket } from './WebSocketContext';
 
 function IDScreen(){
@@ -15,12 +16,12 @@ function IDScreen(){
                 <h1>Alliance</h1>
             </div>
             <p className="endMessage">Your Game Number is {unique}</p>
-            {visible && <div className="button" onClick={()=>{
+            {visible && <Button text={"Start Game"} variation={""} onClick={()=>{
                 setVisible(!visible);
                 send({
                     type: 'startGame'
                 });
-            }}>Start Game</div>}
+            }}/>}
         </div>
     );
 }
