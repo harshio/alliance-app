@@ -69,65 +69,33 @@ const Question: React.FC = () => {
     const amountLeft = setSize - questionIndex;
     let ohBoy = false;
     return (
-        <div className="fuck">
+        <div>
             <div className="titleBar">
                 <h1>Alliance - <p className="playerName">{name}</p></h1>
             </div>
-            <div className="godIsGood">
                 <div className="questionAnswer">
                     <div className="question">
-                        <h2 className="questionLabel">Question {questionIndex}</h2>
+                        <h2>Question {questionIndex}</h2>
                         <p>{currentQuestion.text}</p>
                         <div className="image">Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi</div>
                     </div>
                     {!clicked && <div className="answers">
-                        <div className="answer1">
-                            <SpecialButton text={currentQuestion.answers[0]} variation={'inline'} onClick={(e)=>{
-                                    const selectedText = e.currentTarget.textContent;
-                                    if(selectedText === currentQuestion.correctAnswer){
-                                        ohBoy = true;
-                                    }
-                                    send({
-                                        type: 'playerDone'
-                                    });
-                                    setClicked(true);
-                            }}/>
-                            <SpecialButton text={currentQuestion.answers[1]} variation={'inline'} onClick={(e)=>{
-                                    const selectedText = e.currentTarget.textContent;
-                                    if(selectedText === currentQuestion.correctAnswer){
-                                        ohBoy = true;
-                                    }
-                                    send({
-                                        type: 'playerDone'
-                                    });
-                                    setClicked(true);
-                            }}/>
-                        </div>
-                        <div className="answer2">
-                            <SpecialButton text={currentQuestion.answers[2]} variation={'inline'} onClick={(e)=>{
-                                    const selectedText = e.currentTarget.textContent;
-                                    if(selectedText === currentQuestion.correctAnswer){
-                                        ohBoy = true;
-                                    }
-                                    send({
-                                        type: 'playerDone'
-                                    });
-                                    setClicked(true);
-                            }}/>
-                            <SpecialButton text={currentQuestion.answers[3]} variation={'inline'} onClick={(e)=>{
-                                    const selectedText = e.currentTarget.textContent;
-                                    if(selectedText === currentQuestion.correctAnswer){
-                                        ohBoy = true;
-                                    }
-                                    send({
-                                        type: 'playerDone'
-                                    });
-                                    setClicked(true);
-                            }}/>
-                        </div>
+                        {
+                            currentQuestion.answers.map((question) => 
+                                <SpecialButton text={question} variation={''} onClick={(e)=>{
+                                        const selectedText = e.currentTarget.textContent;
+                                        if(selectedText === currentQuestion.correctAnswer){
+                                            ohBoy = true;
+                                        }
+                                        send({
+                                            type: 'playerDone'
+                                        });
+                                        setClicked(true);
+                                }}/>
+                            )
+                        }
                     </div>}
                 </div>
-            </div>
         </div>
     );
 }

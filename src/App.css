@@ -128,25 +128,13 @@ input{
   align-items: center;
 }
 
-.godIsGood{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.fuck{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 .button:hover{
   color: white;
   background-color: grey;
+}
+
+.needSpace{
+  margin-bottom: 20px;
 }
 
 .button.clicked {
@@ -161,19 +149,28 @@ input{
 
 
 .questionAnswer{
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-top: -100px;
+}
+
+.question{
+  display: flex;
+  flex-direction: column;
 }
 
 
 .answers{
   margin-top: 30px;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
 }
-
 
 .button.gambling{
   position: absolute;
@@ -184,11 +181,6 @@ input{
 
 .button.inline{
   display: inline;
-}
-
-
-.answer2{
-  margin-top: 40px;
 }
 
 

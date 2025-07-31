@@ -5,6 +5,7 @@ import './App.css';
 import Button from './Button';
 
 function Create() {
+    //This is the worst thing I have ever bore witness to
     const[nameOne, setNameOne] = useState('');
     const[nameTwo, setNameTwo] = useState('');
     const[nameThree, setNameThree] = useState('');
@@ -78,8 +79,8 @@ function Create() {
                             setClickOne(true);
                         }
                     }}/>}
-                    {!allDone && <p>First Answer: </p>}
-                    {!allDone && <input type="text" value={nameOne} onChange={(e) => setNameOne(e.target.value)}/>}
+                    {!allDone && <p>Answers: </p>}
+                    {!allDone && <input type="text" className="needSpace" value={nameOne} onChange={(e) => setNameOne(e.target.value)}/>}
                 </div>
                 <div className="format">
                     {allDone && <Button text={nameTwo} variation={clickTwo ? 'clicked': ''} onClick={() => {
@@ -90,8 +91,7 @@ function Create() {
                             setClickTwo(true);
                         }
                     }}/>}
-                    {!allDone && <p>Second Answer: </p>}
-                    {!allDone && <input type="text" value={nameTwo} onChange={(e) => setNameTwo(e.target.value)}/>}
+                    {!allDone && <input type="text" className="needSpace" value={nameTwo} onChange={(e) => setNameTwo(e.target.value)}/>}
                 </div>
                 <div className="format">
                     {allDone && <Button text={nameThree} variation={clickThree ? 'clicked': ''} onClick={() => {
@@ -102,8 +102,7 @@ function Create() {
                             setClickThree(true);
                         }
                     }}/>}
-                    {!allDone && <p>Third Answer: </p>}
-                    {!allDone && <input type="text" value={nameThree} onChange={(e) => setNameThree(e.target.value)}/>}
+                    {!allDone && <input type="text" className="needSpace" value={nameThree} onChange={(e) => setNameThree(e.target.value)}/>}
                 </div>
                 <div className="format">
                     {allDone && <Button text={nameFour} variation={clickFour ? 'clicked': ''} onClick={() => {
@@ -114,8 +113,7 @@ function Create() {
                             setClickFour(true);
                         }
                     }}/>}
-                    {!allDone && <p>Fourth Answer: </p>}
-                    {!allDone && <input type="text" value={nameFour} onChange={(e) => setNameFour(e.target.value)}/>}
+                    {!allDone && <input type="text" className="needSpace" value={nameFour} onChange={(e) => setNameFour(e.target.value)}/>}
                 </div>
             </div>}
             {beginning && !allDone && <Button text={'+'} variation={''} onClick={()=>{setAllDone(true)}}/>}
