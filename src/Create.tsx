@@ -102,7 +102,7 @@ function Create() {
                 handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex);
                 setQuestion('');
                 setPointValue('');
-                setAnswerArray(new Array(answerArray.length).fill(""));
+                setAnswerArray([]);
                 setClickedArray(new Array(clickedArray.length).fill(false));
                 setAllDone(false);
                 setQuestionNumber(questionNumber + 1);
