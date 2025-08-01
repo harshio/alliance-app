@@ -103,7 +103,7 @@ function Create() {
                 setQuestion('');
                 setPointValue('');
                 setAnswerArray([]);
-                setClickedArray(new Array(clickedArray.length).fill(false));
+                setClickedArray(new Array(7).fill(false));
                 setAllDone(false);
                 setQuestionNumber(questionNumber + 1);
             }} />}
