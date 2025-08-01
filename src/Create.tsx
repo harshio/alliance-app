@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
@@ -10,12 +10,17 @@ function Create() {
     const[pointValue, setPointValue] = useState('');
     const[allDone, setAllDone] = useState(false);
     const [answerArray, setAnswerArray] = useState<string[]>([]);
+    const [numberArray, setNumberArray] = useState<number[]>([]);
     const [clickedArray, setClickedArray] = useState<boolean[]>(new Array(7).fill(false));
     const[beginning, setBeginning] = useState(false);
     const[questionNumber, setQuestionNumber] = useState(1);
     const[name, setName] = useState('');
     const[currentNumber, setCurrentNumber] = useState(0);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log(numberArray);
+    }, [numberArray]);
 
     const handleConfirm = async () => {
         const response = await fetch("http://localhost:8000/api/max");
@@ -57,6 +62,17 @@ function Create() {
             </div>}
             {beginning && <div className="questionBox">
                 <div className="format">
+                    <Button text={'Add option'} variation={''} onClick={()=>{
+                        console.log("Hello");
+                        if(numberArray.length === 0){
+                            setNumberArray(prev => [...prev, 4])
+                        }
+                        else{
+                            setNumberArray(prev => [...prev, prev[prev.length-1]+1])
+                        }
+                    }}/>
+                </div>
+                <div className="format">
                     <p>Question: </p>
                     <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)}/>
                 </div>
@@ -81,6 +97,25 @@ function Create() {
                         })}/>}
                     </div>
                 )}
+                {
+                    numberArray.map(i =>
+                        <div className="format" key={i}>
+                            {allDone && <Button text={answerArray[i]} variation={clickedArray[i] ? 'clicked': ''} onClick={() => {
+                                setClickedArray(prev => {
+                                    const copy = [...prev];
+                                    copy[i] = !copy[i];
+                                    return copy;
+                                });
+                            }}/>}
+                            {!allDone && <p>Answer: </p>}
+                            {!allDone && <input type="text" className="needSpace" value={answerArray[i]} onChange={(e) => setAnswerArray(prev => {
+                                const copy = [...prev];
+                                copy[i] = e.target.value;
+                                return copy;
+                            })}/>}
+                        </div>
+                    )
+                }
             </div>}
             {beginning && !allDone && <Button text={'+'} variation={''} onClick={()=>{setAllDone(true)}}/>}
             {beginning && !allDone && <Button text={'Complete Game'} variation={''} onClick={() => {
@@ -103,6 +138,7 @@ function Create() {
                 setQuestion('');
                 setPointValue('');
                 setAnswerArray([]);
+                setNumberArray([]);
                 setClickedArray(new Array(7).fill(false));
                 setAllDone(false);
                 setQuestionNumber(questionNumber + 1);
