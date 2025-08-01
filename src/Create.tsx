@@ -6,17 +6,11 @@ import Button from './Button';
 
 function Create() {
     //This is the worst thing I have ever bore witness to
-    const[nameOne, setNameOne] = useState('');
-    const[nameTwo, setNameTwo] = useState('');
-    const[nameThree, setNameThree] = useState('');
-    const[nameFour, setNameFour] = useState('');
     const[question, setQuestion] = useState('');
     const[pointValue, setPointValue] = useState('');
     const[allDone, setAllDone] = useState(false);
-    const [clickOne, setClickOne] = useState(false);
-    const [clickTwo, setClickTwo] = useState(false);
-    const [clickThree, setClickThree] = useState(false);
-    const [clickFour, setClickFour] = useState(false);
+    const [answerArray, setAnswerArray] = useState<string[]>([]);
+    const [clickedArray, setClickedArray] = useState<boolean[]>(new Array(7).fill(false));
     const[beginning, setBeginning] = useState(false);
     const[questionNumber, setQuestionNumber] = useState(1);
     const[name, setName] = useState('');
@@ -70,51 +64,23 @@ function Create() {
                     <p>Point Value: </p>
                     <input type="text" value={pointValue} onChange={(e) => setPointValue(e.target.value)}/>
                 </div>
-                <div className="format">
-                    {allDone && <Button text={nameOne} variation={clickOne ? 'clicked': ''} onClick={() => {
-                        if(clickOne){
-                            setClickOne(false);
-                        }
-                        else{
-                            setClickOne(true);
-                        }
-                    }}/>}
-                    {!allDone && <p>Answers: </p>}
-                    {!allDone && <input type="text" className="needSpace" value={nameOne} onChange={(e) => setNameOne(e.target.value)}/>}
-                </div>
-                <div className="format">
-                    {allDone && <Button text={nameTwo} variation={clickTwo ? 'clicked': ''} onClick={() => {
-                        if(clickTwo){
-                            setClickTwo(false);
-                        }
-                        else{
-                            setClickTwo(true);
-                        }
-                    }}/>}
-                    {!allDone && <input type="text" className="needSpace" value={nameTwo} onChange={(e) => setNameTwo(e.target.value)}/>}
-                </div>
-                <div className="format">
-                    {allDone && <Button text={nameThree} variation={clickThree ? 'clicked': ''} onClick={() => {
-                        if(clickThree){
-                            setClickThree(false);
-                        }
-                        else{
-                            setClickThree(true);
-                        }
-                    }}/>}
-                    {!allDone && <input type="text" className="needSpace" value={nameThree} onChange={(e) => setNameThree(e.target.value)}/>}
-                </div>
-                <div className="format">
-                    {allDone && <Button text={nameFour} variation={clickFour ? 'clicked': ''} onClick={() => {
-                        if(clickFour){
-                            setClickFour(false);
-                        }
-                        else{
-                            setClickFour(true);
-                        }
-                    }}/>}
-                    {!allDone && <input type="text" className="needSpace" value={nameFour} onChange={(e) => setNameFour(e.target.value)}/>}
-                </div>
+                {[0,1,2,3].map(i => 
+                    <div className="format" key={i}>
+                        {allDone && <Button text={answerArray[i]} variation={clickedArray[i] ? 'clicked': ''} onClick={() => {
+                            setClickedArray(prev => {
+                                const copy = [...prev];
+                                copy[i] = !copy[i];
+                                return copy;
+                            });
+                        }}/>}
+                        {!allDone && <p>Answer: </p>}
+                        {!allDone && <input type="text" className="needSpace" value={answerArray[i]} onChange={(e) => setAnswerArray(prev => {
+                            const copy = [...prev];
+                            copy[i] = e.target.value;
+                            return copy;
+                        })}/>}
+                    </div>
+                )}
             </div>}
             {beginning && !allDone && <Button text={'+'} variation={''} onClick={()=>{setAllDone(true)}}/>}
             {beginning && !allDone && <Button text={'Complete Game'} variation={''} onClick={() => {
@@ -123,34 +89,21 @@ function Create() {
             }}/>}
             {beginning && allDone && <Button text={'Confirm'} variation={''} onClick={()=>{
                 let correctAnswer = "";
-                if(clickOne){
-                    correctAnswer = nameOne;
+                for(let i = 0; i < clickedArray.length; i++){
+                    if(clickedArray[i] == true){
+                        correctAnswer = answerArray[i];
+                    }
                 }
-                else if(clickTwo){
-                    correctAnswer = nameTwo;
-                }
-                else if(clickThree){
-                    correctAnswer = nameThree;
-                }
-                else if(clickFour){
-                    correctAnswer = nameFour;
-                }
-                const answers = [nameOne, nameTwo, nameThree, nameFour];
+                const answers = answerArray;
                 const currIndex = questionNumber;
                 const currQuestion = question;
                 const currPoints = Number(pointValue);
                 const setIndex = currentNumber;
                 handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex);
-                setNameOne('');
-                setNameTwo('');
-                setNameThree('');
-                setNameFour('');
                 setQuestion('');
                 setPointValue('');
-                setClickOne(false);
-                setClickTwo(false);
-                setClickThree(false);
-                setClickFour(false);
+                setAnswerArray(new Array(answerArray.length).fill(""));
+                setClickedArray(new Array(clickedArray.length).fill(false));
                 setAllDone(false);
                 setQuestionNumber(questionNumber + 1);
             }} />}
