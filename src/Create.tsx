@@ -15,11 +15,15 @@ function Create() {
     const[beginning, setBeginning] = useState(false);
     const[questionNumber, setQuestionNumber] = useState(1);
     const[name, setName] = useState('');
+    const[hideAdd, setHideAdd] = useState(false);
     const[currentNumber, setCurrentNumber] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
         console.log(numberArray);
+        if(numberArray[numberArray.length-1] == 6){
+            setHideAdd(true);
+        }
     }, [numberArray]);
 
     const handleConfirm = async () => {
@@ -62,7 +66,7 @@ function Create() {
             </div>}
             {beginning && <div className="questionBox">
                 <div className="format">
-                    <Button text={'Add option'} variation={''} onClick={()=>{
+                    {!hideAdd && <Button text={'Add option'} variation={''} onClick={()=>{
                         console.log("Hello");
                         if(numberArray.length === 0){
                             setNumberArray(prev => [...prev, 4])
@@ -70,7 +74,7 @@ function Create() {
                         else{
                             setNumberArray(prev => [...prev, prev[prev.length-1]+1])
                         }
-                    }}/>
+                }}/>}
                 </div>
                 <div className="format">
                     <p>Question: </p>
