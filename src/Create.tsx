@@ -5,7 +5,6 @@ import './App.css';
 import Button from './Button';
 
 function Create() {
-    //This is the worst thing I have ever bore witness to
     const[question, setQuestion] = useState('');
     const[pointValue, setPointValue] = useState('');
     const[allDone, setAllDone] = useState(false);
