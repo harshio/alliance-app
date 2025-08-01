@@ -18,7 +18,7 @@ interface LocationState{
 
 interface FetchedQuestion {
     text: string;
-    correctAnswer: string;
+    correctAnswer: string[];
     points: number;
     answers: string[];
 }
@@ -84,7 +84,7 @@ const Question: React.FC = () => {
                             currentQuestion.answers.map((question) => 
                                 <SpecialButton text={question} variation={''} onClick={(e)=>{
                                         const selectedText = e.currentTarget.textContent;
-                                        if(selectedText === currentQuestion.correctAnswer){
+                                        if(selectedText && currentQuestion.correctAnswer.includes(selectedText)){
                                             ohBoy = true;
                                         }
                                         send({

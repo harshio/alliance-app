@@ -25,7 +25,7 @@ function Create() {
         console.log("Current Set Number:", newSetNumber);
     }
 
-    const handleSend = async (text: string, correctAnswer: string, points: number, answers: string[], setNumber: number, questionNumber: number) => {
+    const handleSend = async (text: string, correctAnswer: string[], points: number, answers: string[], setNumber: number, questionNumber: number) => {
         const response = await fetch("http://localhost:8000/api/new",{
             method: 'POST',
             headers:{
@@ -88,10 +88,10 @@ function Create() {
 	                navigate('/saved');
             }}/>}
             {beginning && allDone && <Button text={'Confirm'} variation={''} onClick={()=>{
-                let correctAnswer = "";
+                let correctAnswer: string[] = [];
                 for(let i = 0; i < clickedArray.length; i++){
                     if(clickedArray[i] == true){
-                        correctAnswer = answerArray[i];
+                        correctAnswer.push(answerArray[i]);
                     }
                 }
                 const answers = answerArray;
