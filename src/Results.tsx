@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import Button from './Button';
+import { useSocket } from './WebSocketContext';
 
 function Results(){
     const navigate = useNavigate();
@@ -10,13 +11,17 @@ function Results(){
     const name = location.state.name;
     const score = location.state.pointTotal;
     //before the navigate in the onClick, the player client will disconnect from the server
+    const { connect, disconnect, send, latestMessage } = useSocket();
     return (
         <div>
             <div className="titleBar">
                 <h1>Alliance</h1>
             </div>
             <p className="endMessage">Great job, {name}! You scored {score} points!</p>
-            <Button text={"Play Again"} variation={''} onClick={()=>{navigate('/')}}/>
+            <Button text={"Play Again"} variation={''} onClick={()=>{
+                disconnect();
+                navigate('/');
+            }}/>
         </div>
     );
 }

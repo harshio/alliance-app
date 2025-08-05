@@ -133,8 +133,24 @@ input{
   background-color: grey;
 }
 
+.centeringElements{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .needSpace{
   margin-bottom: 20px;
+}
+
+.deletion:hover{
+  color: grey;
+  cursor: default;
+}
+
+.deletion{
+  color: black;
+  transition: all 0.3s ease;
 }
 
 .button.clicked {

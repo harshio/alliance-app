@@ -65,7 +65,7 @@ function Create() {
             </div>}
             {beginning && <div className="questionBox">
                 <div className="format">
-                    {!hideAdd && <Button text={'Add option'} variation={''} onClick={()=>{
+                    {!hideAdd && !allDone && <Button text={'Add option'} variation={''} onClick={()=>{
                         console.log("Hello");
                         if(numberArray.length === 0){
                             setNumberArray(prev => [...prev, 4])
