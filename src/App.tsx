@@ -22,6 +22,10 @@ function App() {
     const connected = await connect(name, setNumber);
     if(connected){
       navigate('/room', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
+      send({
+        type: 'setSize',
+        content: setSize
+      });
     }
   }
   //apparently you can pass in states when you navigate

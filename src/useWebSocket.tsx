@@ -33,6 +33,7 @@ function useWebSocket() {
     const wsRef = useRef<WebSocket | null>(null);
     //We will create a global useState that's also rooted at index.tsx, the root or whatever
     const [latestMessage, setLatestMessage] = useState<playerNames | null>(null);
+    const [setSize, setSetSize] = useState(0);
 
     //running the connect method connects our client, indicated by
     //the websocket, to the server, and sets the current property of our
@@ -47,6 +48,9 @@ function useWebSocket() {
             listeners.current[type] = [];
         }
         listeners.current[type].push(callback);
+        return () => {
+            listeners.current[type] = listeners.current[type].filter(cb => cb !== callback);
+        };
     };
 
     const hostConnect = (clientId: string): Promise<boolean> => {
@@ -65,6 +69,12 @@ function useWebSocket() {
             };
             ws.onmessage = (event) => {
                 const message = JSON.parse(event.data);
+                console.log("HELLO! JESUS?!");
+                const { type, content } = message;
+                if(message["type"] == "setSize"){
+                    setSetSize(message["content"]);
+                }
+                listeners.current[type]?.forEach(cb => cb(content));
             };
             ws.onclose = () => {
                 console.log('Disconnected from server');
@@ -114,7 +124,7 @@ function useWebSocket() {
         }
     };
 
-    return {connect, disconnect, send, latestMessage, hostConnect, subscribeToMessageType};
+    return {connect, disconnect, send, latestMessage, hostConnect, subscribeToMessageType, setSize};
 
 }
 
