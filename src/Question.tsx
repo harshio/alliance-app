@@ -5,7 +5,6 @@ import { useSocket } from './WebSocketContext';
 import './App.css';
 import Button from './Button';
 import SpecialButton from './SpecialButton';
-import photo1 from './Images/photo1.jpg';
 
 interface LocationState{
     state: {
