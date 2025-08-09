@@ -39,7 +39,7 @@ function Saved(){
             </div>
             {saved.map((num) =>(
                 <div className="centeringElements">
-                    <Button text={`SetNumber: ${num}`} variation={''} onClick={async ()=>{
+                    <Button text={`Set ${num}`} variation={''} onClick={async ()=>{
                         const setIndex = num;
                         //host client will connect to server here (will only disconnect upon closing out of the tab, which automatically happens in Google Chrome)
                         const connected = await hostConnect('host');

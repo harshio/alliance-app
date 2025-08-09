@@ -5,6 +5,7 @@ import { useSocket } from './WebSocketContext';
 import './App.css';
 import Button from './Button';
 import SpecialButton from './SpecialButton';
+import photo1 from './Images/photo1.jpg';
 
 interface LocationState{
     state: {
@@ -21,6 +22,7 @@ interface FetchedQuestion {
     correctAnswer: string[];
     points: number;
     answers: string[];
+    imageURL: string;
 }
 
 const Question: React.FC = () => {
@@ -69,7 +71,7 @@ const Question: React.FC = () => {
     const amountLeft = setSize - questionIndex;
     let ohBoy = false;
     return (
-        <div>
+        <div className="questionPage">
             <div className="titleBar">
                 <h1>Alliance - <p className="playerName">{name}</p></h1>
             </div>
@@ -77,7 +79,7 @@ const Question: React.FC = () => {
                     <div className="question">
                         <h2>Question {questionIndex}</h2>
                         <p>{currentQuestion.text}</p>
-                        <div className="image">Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi</div>
+                        <img src={currentQuestion.imageURL} alt="Question Photo" width="200" height="200"></img>
                     </div>
                     {!clicked && <div className="answers">
                         {

@@ -16,6 +16,9 @@ h1{
   margin: 10px auto 0;
   padding-left: 10px;
   padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 275px;
   border: 5px solid black;
 }
@@ -179,10 +182,6 @@ input{
 
 
 .questionAnswer{
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  transform: translateX(-50%);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -192,14 +191,21 @@ input{
 .question{
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
+.questionPage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .answers{
   margin-top: 30px;
   flex-wrap: wrap;
   display: flex;
   flex-direction: row;
+  width: 50%;
 }
 
 .button.gambling{

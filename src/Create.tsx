@@ -17,6 +17,13 @@ function Create() {
     const[hideAdd, setHideAdd] = useState(false);
     const[currentNumber, setCurrentNumber] = useState(0);
     const navigate = useNavigate();
+    const [imageURL, setImageURL] = useState("");
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0]; // Get first file
+        if (file) {
+          setImageURL(URL.createObjectURL(file)); // Create local preview URL
+        }
+    };
 
     useEffect(() => {
         console.log(numberArray);
@@ -33,7 +40,7 @@ function Create() {
         console.log("Current Set Number:", newSetNumber);
     }
 
-    const handleSend = async (text: string, correctAnswer: string[], points: number, answers: string[], setNumber: number, questionNumber: number) => {
+    const handleSend = async (text: string, correctAnswer: string[], points: number, answers: string[], setNumber: number, questionNumber: number, imageURL: string) => {
         const response = await fetch("http://localhost:8000/api/new",{
             method: 'POST',
             headers:{
@@ -45,7 +52,8 @@ function Create() {
                 points: points,
                 answers: answers,
                 setNumber: setNumber,
-                questionNumber: questionNumber
+                questionNumber: questionNumber,
+                imageURL: imageURL
             })
         });
     }
@@ -100,6 +108,15 @@ function Create() {
                         })}/>}
                     </div>
                 )}
+                <input type="file" accept="image/*" onChange={handleImageChange} />
+      
+                {imageURL && (
+                    <img
+                    src={imageURL}
+                    alt="User selected"
+                    style={{ width: "200px", height: "200px", marginTop: "10px"}}
+                    />
+                )}
                 {
                     numberArray.map(i =>
                         <div className="format" key={i}>
@@ -120,7 +137,9 @@ function Create() {
                     )
                 }
             </div>}
-            {beginning && !allDone && <Button text={'+'} variation={''} onClick={()=>{setAllDone(true)}}/>}
+            {beginning && !allDone && <Button text={'+'} variation={''} onClick={()=>{
+                setAllDone(true);
+            }}/>}
             {beginning && !allDone && <Button text={'Complete Game'} variation={''} onClick={() => {
 	                const setIndex = currentNumber;
 	                navigate('/saved');
@@ -137,11 +156,12 @@ function Create() {
                 const currQuestion = question;
                 const currPoints = Number(pointValue);
                 const setIndex = currentNumber;
-                handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex);
+                handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex, imageURL);
                 setQuestion('');
                 setPointValue('');
                 setAnswerArray([]);
                 setNumberArray([]);
+                setImageURL("");
                 setClickedArray(new Array(7).fill(false));
                 setAllDone(false);
                 setQuestionNumber(questionNumber + 1);
