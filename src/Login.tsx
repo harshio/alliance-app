@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
+import finalLogo from './Frame7.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import Button from './Button';
@@ -16,8 +17,9 @@ function Login() {
     return(
         <div>
             <div className="titleBar">
-            <h1>Alliance</h1>
-        </div>
+                <h1>Alliance</h1>
+                <img className="wonky" src={finalLogo}/>
+            </div>
         <div className="nameEntry">
             <p>Enter ID here</p>
             <input type="text" name="username" placeholder="12345" value={entry} onChange={(e)=>{setEntry(e.target.value)}}/>
