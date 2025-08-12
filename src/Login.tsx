@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import finalLogo from './Frame7.svg';
+import background from './background.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import Button from './Button';
@@ -8,36 +9,25 @@ import Button from './Button';
 function Login() {
     const navigate = useNavigate();
     const [entry, setEntry] = useState('');
-    const [size, setSize] = useState(0);
-    const handleSubmit = async (code: number) => {
-        const response = await fetch(`http://localhost:8000/api/size/${code}`);
-        const sizeOfSet = await response.json();
-        return sizeOfSet;
-    };
     return(
         <div>
             <div className="titleBar">
+                <i className="bi bi-list"></i>
                 <h1>Alliance</h1>
                 <img className="wonky" src={finalLogo}/>
             </div>
-        <div className="nameEntry">
-            <p>Enter ID here</p>
-            <input type="text" name="username" placeholder="12345" value={entry} onChange={(e)=>{setEntry(e.target.value)}}/>
-            <Button text={'Submit'} variation={''} onClick={async ()=>{
-                const newEntry = Number(entry);
-                const thisSize = await handleSubmit(newEntry);
-                setSize(thisSize);
-                console.log("The size of set " + newEntry + " is " + thisSize);
-                if(thisSize !== 0){
-                    navigate('/login', { state: {newEntry, thisSize} });
-                }
-                else{
-                    setSize(-1);
-                }
-            }}/>
-            {size == -1 && <p>Put in a valid Game ID</p>}
+            <div className="background-container">
+                <img className="background" src={background} />
+                <div className="overlay" />
+                <div className="nameEntry">
+                    <p>Enter ID here</p>
+                    <input type="text" name="username" placeholder="12345" value={entry} onChange={(e)=>{setEntry(e.target.value)}}/>
+                    <Button text={'Submit'} variation={''} onClick={async ()=>{
+                            navigate('/login', {state: {entry}});
+                    }}/>
+                </div>
+            </div>
         </div>
-    </div>
     );
 }
 

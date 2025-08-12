@@ -34,6 +34,7 @@ function useWebSocket() {
     //We will create a global useState that's also rooted at index.tsx, the root or whatever
     const [latestMessage, setLatestMessage] = useState<playerNames | null>(null);
     const [setSize, setSetSize] = useState(0);
+    const [activeSet, setActiveSet] = useState(0);
 
     //running the connect method connects our client, indicated by
     //the websocket, to the server, and sets the current property of our
@@ -102,6 +103,14 @@ function useWebSocket() {
                 if(message["type"] == "playerNames"){
                     setLatestMessage(message);
                 }
+                if(message["type"] == "activeSet"){
+                    console.log("You are being given the set: ");
+                    console.log(message["content"]);
+                    setActiveSet(content);
+                }
+                if(message["type"] == "startGame"){
+                    setActiveSet(-1);
+                }
                 listeners.current[type]?.forEach(cb => cb(content));
             };
             ws.onclose = () => {
@@ -124,7 +133,7 @@ function useWebSocket() {
         }
     };
 
-    return {connect, disconnect, send, latestMessage, hostConnect, subscribeToMessageType, setSize};
+    return {connect, disconnect, send, latestMessage, hostConnect, subscribeToMessageType, setSize, activeSet};
 
 }
 

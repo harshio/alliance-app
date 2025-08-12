@@ -30,12 +30,12 @@ function Room() {
         }
     }, [latestMessage]);
     useEffect(() => {
-        subscribeToMessageType("startGame", () => {
-          navigate('/questions', {
-            state: { currQuestion, name, pointTotal, setNumber, setSize }
-          });
+        subscribeToMessageType("startGame", async () => {
+            navigate('/questions', {
+                state: { currQuestion, name, pointTotal, setNumber, setSize}
+            });
         });
-      }, []);
+    }, []);
     return(
         <div className="prettyRoom">
             <div className="titleBar">

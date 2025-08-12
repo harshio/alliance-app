@@ -6,7 +6,8 @@ import Button from './Button';
 import { useSocket } from './WebSocketContext';
 
 function IDScreen(){
-    const location = useLocation() as {state: {setIndex: number}};
+    const location = useLocation() as {state: {setIndex: number, randomNumber: number}};
+    const ID = location.state.randomNumber;
     const unique = location.state.setIndex;
     const [visible, setVisible] = useState(true);
     const [timer, setTimer] = useState(false);
@@ -69,7 +70,7 @@ function IDScreen(){
             <div className="titleBar">
                 <h1>Alliance</h1>
             </div>
-            <p className="endMessage">Your Game Number is {unique}</p>
+            <p className="endMessage">Your Game ID is {ID}</p>
             {visible && <Button text={"Start Game"} variation={""} onClick={()=>{
                 setVisible(!visible);
                 send({
@@ -77,7 +78,7 @@ function IDScreen(){
                 });
                 setTimer(true);
             }}/>}
-            {questionsLeft != 0 && timer && <div className="timer">{time}</div>}
+            {questionsLeft != 0 && timer && <div className="timer"><p>{time}</p></div>}
             {questionsLeft == 0 && <Button text={"Select new set"} variation={""} onClick={()=>{
                 disconnect();
                 navigate('/saved');

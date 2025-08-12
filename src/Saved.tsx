@@ -43,14 +43,18 @@ function Saved(){
                         const setIndex = num;
                         //host client will connect to server here (will only disconnect upon closing out of the tab, which automatically happens in Google Chrome)
                         const connected = await hostConnect('host');
+                        const randomNumber = Math.floor(Math.random() * 90000) + 10000;
                         if(connected){
                             console.log("FUCK");
                             send({
                                 type: 'sessionID',
-                                content: setIndex
+                                content: {
+                                    id: randomNumber,
+                                    set: setIndex
+                                }
                             })
                         }
-                        navigate('/id', {state: {setIndex}});
+                        navigate('/id', {state: {setIndex, randomNumber}});
                     }}/>
                     <div className="deletion" onClick={()=>{setClicked(num)}}>x</div>
                 </div>

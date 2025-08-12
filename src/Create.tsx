@@ -108,7 +108,7 @@ function Create() {
                         })}/>}
                     </div>
                 )}
-                <input type="file" accept="image/*" onChange={handleImageChange} />
+                <input type="file" className="rebellious" accept="image/*" onChange={handleImageChange} />
       
                 {imageURL && (
                     <img

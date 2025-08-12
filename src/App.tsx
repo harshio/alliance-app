@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
+import background from './background.jpg';
 import './App.css';
 import Button from './Button';
 import {useNavigate, useLocation} from 'react-router-dom';
@@ -10,22 +11,44 @@ function App() {
   const [name, setName] = useState('');
   const currQuestion = 1;
   const pointTotal = 0;
-  const location = useLocation() as {state: {newEntry: number, thisSize: number}};
-  const setNumber = location.state.newEntry;
-  const setSize = location.state.thisSize;
   const [inActive, setInActive] = useState(false);
-  const { connect, disconnect, send, latestMessage } = useSocket();
+  const { connect, disconnect, send, latestMessage, subscribeToMessageType, activeSet } = useSocket();
+  const location = useLocation() as {state: {entry: string}};
+  const newEntry = location.state.entry;
+  const setID = Number(newEntry);
+  const [setSize, setSetSize] = useState(0);
+  const [checking, setChecking] = useState(false);
+
+  useEffect(() => {
+    const execute = async() => {  
+        console.log("Wassup");
+        console.log("Cheers");
+        const setNumber = activeSet;
+        console.log(setNumber);
+        const setSize = await fetchData(setNumber);
+        send({
+          type: 'setSize',
+          content: setSize
+        });
+        navigate('/room', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
+    };
+    const fetchData = async(setNumber: number) => {
+      const response = await fetch(`http://localhost:8000/api/size/${setNumber}`);
+      const setSize = await response.json(); //this part works correctly, but setNumber is wrong a lot of the time
+      return setSize;
+    }
+    if(checking && activeSet != -1){
+      execute();
+    }
+  }, [checking, activeSet])
+
   const handleSubmit = async () => {
     console.log("Hello");
     //player client will connect to server here
     //only if useRef.current equals setNumber, can we connect to the server and navigate to the page
-    const connected = await connect(name, setNumber);
+    const connected = await connect(name, setID);
     if(connected){
-      navigate('/room', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
-      send({
-        type: 'setSize',
-        content: setSize
-      });
+      setChecking(true);
     }
   }
   //apparently you can pass in states when you navigate
@@ -34,14 +57,17 @@ function App() {
       <div className="titleBar">
         <h1>Alliance</h1>
       </div>
-      <div className="nameEntry">
-        <p>Write your name here</p>
-        <input type="text" name="username" placeholder="Abraham Lincoln"
-        value = {name} onChange = {(e) => setName(e.target.value)}/>
-        <Button text={'Start Game'} variation={''} onClick={handleSubmit}/>
-        {inActive && <p>Put in the Game ID of an active session</p>}
+      <div className="background-container">
+        <img className="background" src={background} />
+        <div className="overlay" />
+        <div className="nameEntry">
+          <p>Write your name here</p>
+          <input type="text" name="username" placeholder="Abraham Lincoln"
+          value = {name} onChange = {(e) => setName(e.target.value)}/>
+          <Button text={'Start Game'} variation={''} onClick={handleSubmit}/>
+          {inActive && <p>Put in the Game ID of an active session</p>}
+        </div>
       </div>
-
     </div>
   );
 }
