@@ -21,6 +21,15 @@ i{
   cursor: pointer;
 }
 
+.title{
+  margin-right: 75px;
+}
+
+.cornerMessage{
+  padding-top: 30px;
+  padding-left: 15px;
+}
+
 .questionBox{
   margin: 10px auto 0;
   padding-left: 10px;
@@ -62,6 +71,7 @@ i{
   border: 1px solid black;
   border-top: none;
   text-align: center;
+  background-color: white;
 }
 
 

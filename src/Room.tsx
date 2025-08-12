@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {useNavigate, useLocation} from 'react-router-dom';
 import { useSocket } from './WebSocketContext';
+import background from './background.jpg';
 interface LocationState{
     state:{
         currQuestion: number,
@@ -42,11 +43,11 @@ function Room() {
                 <h1>Alliance - <p className="playerName">Room</p></h1>
             </div>
             <div className="playerList">
-                {
-                    players.map((name) =>
-                        <p>{name}</p>
-                    )
-                }
+            {
+                players.map((name) =>
+                    <p>{name}</p>
+                )
+            }
             </div>
         </div>
     );

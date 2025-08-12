@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
+import finalLogo from './Frame7.svg';
 import background from './background.jpg';
 import './App.css';
 import Button from './Button';
@@ -55,7 +56,9 @@ function App() {
   return (
     <div className="App">
       <div className="titleBar">
-        <h1>Alliance</h1>
+        <p className="cornerMessage">Write Your Name</p>
+        <h1 className="title">Alliance</h1>
+        <img className="wonky" src={finalLogo}/>
       </div>
       <div className="background-container">
         <img className="background" src={background} />
