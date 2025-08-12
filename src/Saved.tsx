@@ -59,6 +59,9 @@ function Saved(){
                     <div className="deletion" onClick={()=>{setClicked(num)}}>x</div>
                 </div>
             ))}
+            {
+                saved.length === 0 && <Button text={`Create a set`} variation={''} onClick={()=>{navigate('/create')}}/>
+            }
         </div>
     );
 }
