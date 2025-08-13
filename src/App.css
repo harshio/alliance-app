@@ -14,13 +14,6 @@ h1{
   text-align: center;
 }
 
-i{
-  padding-top:45px;
-  margin-left: 30px;
-  font-size: 30px;
-  cursor: pointer;
-}
-
 .title{
   margin-right: 75px;
 }
@@ -111,7 +104,22 @@ p{
   text-align: left;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between
+}
+
+.blackLinks{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.blackLink{
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.blackLink:hover{
+  color: grey;
 }
 
 .prettyRoom{
@@ -119,6 +127,10 @@ p{
   flex-direction: column;
 }
 
+.Login{
+  display: flex;
+  flex-direction: column;
+}
 
 .nameEntry{
   position: absolute;

@@ -5,16 +5,20 @@ import background from './background.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import Button from './Button';
+import { Navbar, Nav, Container } from 'react-bootstrap'
 
 function Login() {
     const navigate = useNavigate();
     const [entry, setEntry] = useState('');
     return(
-        <div>
+        <div className="Login">
             <div className="titleBar">
-                <i className="bi bi-list"></i>
                 <h1>Alliance</h1>
                 <img className="wonky" src={finalLogo}/>
+            </div>
+            <div className="blackLinks">
+                <p className="blackLink" onClick={()=>{navigate('/saved')}}>Your Sets</p>
+                <p className="blackLink" onClick={()=>{navigate('/create')}}>Create A Set</p>
             </div>
             <div className="background-container">
                 <img className="background" src={background} />
