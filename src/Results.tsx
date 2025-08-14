@@ -18,7 +18,7 @@ function Results(){
                 <h1>Alliance</h1>
             </div>
             <p className="endMessage">Great job, {name}! You scored {score} points!</p>
-            <Button text={"Play Again"} variation={''} onClick={()=>{
+            <Button text={"Play Again"} onClick={()=>{
                 disconnect();
                 navigate('/');
             }}/>

@@ -83,7 +83,7 @@ const Question: React.FC = () => {
                     {!clicked && <div className="answers">
                         {
                             currentQuestion.answers.map((question) => 
-                                <SpecialButton text={question} variation={''} onClick={(e)=>{
+                                <SpecialButton text={question} onClick={(e)=>{
                                         const selectedText = e.currentTarget.textContent;
                                         if(selectedText && currentQuestion.correctAnswer.includes(selectedText)){
                                             ohBoy = true;

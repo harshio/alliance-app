@@ -26,7 +26,7 @@ function Login() {
                 <div className="nameEntry">
                     <p>Enter ID here</p>
                     <input type="text" name="username" placeholder="12345" value={entry} onChange={(e)=>{setEntry(e.target.value)}}/>
-                    <Button text={'Submit'} variation={''} onClick={async ()=>{
+                    <Button text={'Submit'} onClick={async ()=>{
                             navigate('/login', {state: {entry}});
                     }}/>
                 </div>

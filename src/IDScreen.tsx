@@ -71,7 +71,7 @@ function IDScreen(){
                 <h1>Alliance</h1>
             </div>
             <p className="endMessage">Your Game ID is {ID}</p>
-            {visible && <Button text={"Start Game"} variation={""} onClick={()=>{
+            {visible && <Button text={"Start Game"} onClick={()=>{
                 setVisible(!visible);
                 send({
                     type: 'startGame'
@@ -79,7 +79,7 @@ function IDScreen(){
                 setTimer(true);
             }}/>}
             {questionsLeft != 0 && timer && <div className="timer"><p>{time}</p></div>}
-            {questionsLeft == 0 && <Button text={"Select new set"} variation={""} onClick={()=>{
+            {questionsLeft == 0 && <Button text={"Select new set"} onClick={()=>{
                 disconnect();
                 navigate('/saved');
             }}/>}

@@ -68,7 +68,7 @@ function App() {
           <p>Write your name here</p>
           <input type="text" name="username" placeholder="Abraham Lincoln"
           value = {name} onChange = {(e) => setName(e.target.value)}/>
-          <Button text={'Start Game'} variation={''} onClick={handleSubmit}/>
+          <Button text={'Start Game'} onClick={handleSubmit}/>
           {inActive && <p>Put in the Game ID of an active session</p>}
         </div>
       </div>

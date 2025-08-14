@@ -83,14 +83,14 @@ function Create() {
             {!beginning && <div className="nameEntry">
                 <p>Enter name of set: </p>
                 <input type="text" placeholder="Abraham Lincoln" value={name} onChange={(e) => setName(e.target.value)}/>
-                <Button text={'Confirm'} variation={''} onClick={()=>{
+                <Button text={'Confirm'} onClick={()=>{
                     handleConfirm();
                     setBeginning(true);
                 }}/>
             </div>}
             {beginning && <div className="questionBox">
                 <div className="format">
-                    {!hideAdd && !allDone && <Button text={'Add option'} variation={''} onClick={()=>{
+                    {!hideAdd && !allDone && <Button text={'Add option'} onClick={()=>{
                         console.log("Hello");
                         if(numberArray.length === 0){
                             setNumberArray(prev => [...prev, 4])
@@ -154,17 +154,17 @@ function Create() {
                     )
                 }
             </div>}
-            {beginning && !allDone && <Button text={'Pick answers to be correct'} variation={''} onClick={()=>{
+            {beginning && !allDone && <Button text={'Pick answers to be correct'} onClick={()=>{
                 //gonna put a bunch of checks here
                 if(isNumberString(pointValue) && question != "" && imageURL != ""){
                     setAllDone(true);
                 }
             }}/>}
-            {beginning && !allDone && <Button text={'Complete Game'} variation={''} onClick={() => {
+            {beginning && !allDone && <Button text={'Complete Game'} onClick={() => {
 	                const setIndex = currentNumber;
 	                navigate('/saved');
             }}/>}
-            {beginning && allDone && <Button text={'Confirm'} variation={''} onClick={()=>{
+            {beginning && allDone && <Button text={'Confirm'} onClick={()=>{
                 let correctAnswer: string[] = [];
                 for(let i = 0; i < clickedArray.length; i++){
                     if(clickedArray[i] == true){

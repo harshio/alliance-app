@@ -9,7 +9,7 @@ import { useSocket } from './WebSocketContext';
 
 interface Props {
     text: string; //there's always text on a button
-    variation: string; //there's usually some sort of conditional JSX modifying the class of the button
+    variation?: string; //there's usually some sort of conditional JSX modifying the class of the button
     onClick: () => unknown;
 }
 
