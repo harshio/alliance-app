@@ -40,6 +40,10 @@ function Create() {
         console.log("Current Set Number:", newSetNumber);
     }
 
+    const isNumberString = (str: string) => {
+        return str.trim() !== "" && !isNaN(Number(str));
+    }
+
     const handleSend = async (text: string, correctAnswer: string[], points: number, answers: string[], setNumber: number, questionNumber: number, imageURL: string) => {
         const response = await fetch("http://localhost:8000/api/new",{
             method: 'POST',
@@ -138,7 +142,10 @@ function Create() {
                 }
             </div>}
             {beginning && !allDone && <Button text={'+'} variation={''} onClick={()=>{
-                setAllDone(true);
+                //gonna put a bunch of checks here
+                if(isNumberString(pointValue) && question != "" && imageURL != ""){
+                    setAllDone(true);
+                }
             }}/>}
             {beginning && !allDone && <Button text={'Complete Game'} variation={''} onClick={() => {
 	                const setIndex = currentNumber;
