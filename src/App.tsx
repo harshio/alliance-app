@@ -45,13 +45,14 @@ function App() {
 
   const handleSubmit = async () => {
     console.log("Hello");
-    //player client will connect to server here
-    //only if useRef.current equals setNumber, can we connect to the server and navigate to the page
-    const connected = await connect(name, setID);
-    if(connected){
-      setChecking(true);
+    try {
+      const connected = await connect(name, setID); // throws on failure
+      if (connected) setChecking(true);
+    } catch (e) {
+      navigate("/");
     }
   }
+
   //apparently you can pass in states when you navigate
   return (
     <div className="App">
