@@ -154,7 +154,7 @@ function Create() {
                     )
                 }
             </div>}
-            {beginning && !allDone && <Button text={'+'} variation={''} onClick={()=>{
+            {beginning && !allDone && <Button text={'Pick answers to be correct'} variation={''} onClick={()=>{
                 //gonna put a bunch of checks here
                 if(isNumberString(pointValue) && question != "" && imageURL != ""){
                     setAllDone(true);
