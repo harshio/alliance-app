@@ -13,9 +13,9 @@ interface Props {
     onClick: (e: React.MouseEvent<HTMLDivElement>) => unknown;
 }
 
-function SpecialButton(props: Props){
+function SpecialButton({text, onClick, variation=""}: Props){
     return(
-        <div className={`button ${props.variation}`} onClick={props.onClick}>{props.text}</div>
+        <div className={`button ${variation}`} onClick={onClick}>{text}</div>
     );
 }
 
