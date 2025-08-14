@@ -18,10 +18,23 @@ function Create() {
     const[currentNumber, setCurrentNumber] = useState(0);
     const navigate = useNavigate();
     const [imageURL, setImageURL] = useState("");
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const [realURL, setRealURL] = useState("");
+    const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0]; // Get first file
         if (file) {
-          setImageURL(URL.createObjectURL(file)); // Create local preview URL
+          setImageURL(URL.createObjectURL(file));
+          const form = new FormData();
+          const key = `uploads/${file.name}`;
+          form.append("file", file);
+          form.append("key", key)
+
+          const res = await fetch("http://localhost:8000/upload", {
+            method: "POST",
+            body: form,
+          });
+          const data = await res.json();
+          console.log(data);
+          setRealURL(`https://bucketharshio0651.s3.amazonaws.com/${key}`);
         }
     };
 
@@ -163,12 +176,13 @@ function Create() {
                 const currQuestion = question;
                 const currPoints = Number(pointValue);
                 const setIndex = currentNumber;
-                handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex, imageURL);
+                handleSend(currQuestion, correctAnswer, currPoints, answers, setIndex, currIndex, realURL);
                 setQuestion('');
                 setPointValue('');
                 setAnswerArray([]);
                 setNumberArray([]);
                 setImageURL("");
+                setRealURL("");
                 setClickedArray(new Array(7).fill(false));
                 setAllDone(false);
                 setQuestionNumber(questionNumber + 1);
