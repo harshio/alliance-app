@@ -13,9 +13,9 @@ interface Props {
     onClick: () => unknown;
 }
 
-function Button(props: Props){
+function Button({text, onClick, variation=""}: Props){
     return(
-        <div className={`button ${props.variation}`} onClick={props.onClick}>{props.text}</div>
+        <div className={`button ${variation}`} onClick={onClick}>{text}</div>
     );
 }
 
