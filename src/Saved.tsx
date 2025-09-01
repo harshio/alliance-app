@@ -11,12 +11,12 @@ function Saved(){
     const[clicked, setClicked] = useState(-1);
     const {connect, disconnect, send, latestMessage, hostConnect} = useSocket();
     const loadInSets = async () => {
-        const response = await fetch("http://localhost:8000/api/setNumbers");
+        const response = await fetch("http://192.168.68.107:8000/api/setNumbers");
         const data = await response.json();
         setSaved(data);
     }
     const deleteSet = async (setNumber: number) => {
-        const response = await fetch(`http://localhost:8000/api/old/${setNumber}`, {
+        const response = await fetch(`http://192.168.68.107:8000/api/old/${setNumber}`, {
             method: 'DELETE'
         });
     }

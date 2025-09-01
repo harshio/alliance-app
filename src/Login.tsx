@@ -17,7 +17,7 @@ function Login() {
                 <img className="wonky" src={finalLogo}/>
             </div>
             <div className="blackLinks">
-                <p className="blackLink" onClick={()=>{navigate('/saved')}}>Your Sets</p>
+                <p className="blackLink" onClick={()=>{navigate('/saved')}}>Select a Set</p>
                 <p className="blackLink" onClick={()=>{navigate('/create')}}>Create A Set</p>
             </div>
             <div className="background-container">
