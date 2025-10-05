@@ -28,7 +28,7 @@ function Create() {
           form.append("file", file);
           form.append("key", key)
 
-          const res = await fetch("http://192.168.68.107:8000/upload", {
+          const res = await fetch("http://96.248.120.59:8000/upload", {
             method: "POST",
             body: form,
           });
@@ -46,7 +46,7 @@ function Create() {
     }, [numberArray]);
 
     const handleConfirm = async () => {
-        const response = await fetch("http://192.168.68.107:8000/api/max");
+        const response = await fetch("http://96.248.120.59:8000/api/max");
         const maxSetNumber = await response.json();
         const newSetNumber = maxSetNumber + 1;
         setCurrentNumber(newSetNumber);
@@ -58,7 +58,7 @@ function Create() {
     }
 
     const handleSend = async (text: string, correctAnswer: string[], points: number, answers: string[], setNumber: number, questionNumber: number, imageURL: string) => {
-        const response = await fetch("http://192.168.68.107:8000/api/new",{
+        const response = await fetch("http://96.248.120.59:8000/api/new",{
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json'

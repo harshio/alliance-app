@@ -35,7 +35,7 @@ const Question: React.FC = () => {
     const {connect, disconnect, send, latestMessage, subscribeToMessageType} = useSocket();
     const [upQuestion, setUpQuestion] = useState<FetchedQuestion | null>(null);
     const loadInQuestion = async (questionNumber: number) => {
-        const thing = await fetch(`http://192.168.68.107:8000/api/question/${setNumber}/${questionNumber}`);
+        const thing = await fetch(`http://96.248.120.59:8000/api/question/${setNumber}/${questionNumber}`);
         const currQuestion = await thing.json();
         setUpQuestion(currQuestion);
         setQuestionIndex(questionNumber);

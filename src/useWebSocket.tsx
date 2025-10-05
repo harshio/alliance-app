@@ -58,7 +58,7 @@ function useWebSocket() {
         return new Promise((resolve, reject) => {
             if (wsRef.current) return resolve(true);
     
-            const ws = new WebSocket(`ws://192.168.68.107:8000/ws?client_id=${clientId}`);
+            const ws = new WebSocket(`ws://96.248.120.59:8000/ws?client_id=${clientId}`);
             ws.onopen = () => {
                 console.log(`Connected to the server as ${clientId}`);
                 wsRef.current = ws;
@@ -87,7 +87,7 @@ function useWebSocket() {
         return new Promise((resolve, reject) => {
             if (wsRef.current) return resolve(true);
     
-            const ws = new WebSocket(`ws://192.168.68.107:8000/ws?client_id=${clientId}&setNumber=${setNumber}`);
+            const ws = new WebSocket(`ws://96.248.120.59:8000/ws?client_id=${clientId}&setNumber=${setNumber}`);
             ws.onopen = () => {
                 console.log(`Connected to the server as ${clientId}`);
                 wsRef.current = ws;

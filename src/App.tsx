@@ -34,7 +34,7 @@ function App() {
         navigate('/room', {state: { currQuestion, name, pointTotal, setNumber, setSize }});
     };
     const fetchData = async(setNumber: number) => {
-      const response = await fetch(`http://192.168.68.107:8000/api/size/${setNumber}`);
+      const response = await fetch(`http://96.248.120.59:8000/api/size/${setNumber}`);
       const setSize = await response.json(); //this part works correctly, but setNumber is wrong a lot of the time
       return setSize;
     }
